@@ -3,19 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Control del Redil</title>
+<title>Cuido mi Rebaño</title>
 <meta name="theme-color" content="#0f7a68">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Redil">
+<meta name="apple-mobile-web-app-title" content="Mi Rebaño">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Figtree:wght@400;500;600;700&display=swap">
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="config.js"></script>
 <style>
 :root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-text-size-adjust:100%}
@@ -324,6 +325,87 @@ input[type=search]{-webkit-appearance:none;appearance:none}
 .dirg button{all:unset;cursor:pointer;font-size:.88rem;padding:2px 0;color:var(--ink)}
 .dirg button:hover{color:var(--blue)}
 .dirg button:focus-visible{outline:2px solid var(--blue-2);border-radius:4px}
+/* ===== Estilo verde pastor y arena ===== */
+:root{
+  --bg:#f3efe6; --surface:#fffdf9; --ink:#1e2a23; --muted:#6b756c; --line:#e4ddcf;
+  --blue:#2e6a4f; --blue-2:#3d8563; --sky:#e4eee6; --gold:#a9814c; --gold-soft:#f3eadb;
+  --ok:#3b7d57; --ok-soft:#e3f0e6; --warn:#9a6a1f; --warn-soft:#f6ecd8; --bad:#b0473d; --bad-soft:#f7e4e1;
+  --vio:#6c5aa8; --vio-soft:#ece8f5; --pink:#a54a72; --pink-soft:#f6e4ec;
+  --f-display:"Fraunces",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141a16; --surface:#1c241f; --ink:#ebe7dd; --muted:#a3ab9f; --line:#2c362f;
+  --blue:#7fbf98; --blue-2:#94cfab; --sky:#1f3428; --gold:#d2ad78; --gold-soft:#33291b;
+  --ok:#86cf9f; --ok-soft:#1b3324; --warn:#e2b46a; --warn-soft:#352a17; --bad:#ef8f84; --bad-soft:#3a1f1c;
+  --vio:#b3a5e8; --vio-soft:#2a2442; --pink:#e79ab9; --pink-soft:#3a2030; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141a16; --surface:#1c241f; --ink:#ebe7dd; --muted:#a3ab9f; --line:#2c362f;
+  --blue:#7fbf98; --blue-2:#94cfab; --sky:#1f3428; --gold:#d2ad78; --gold-soft:#33291b;
+  --ok:#86cf9f; --ok-soft:#1b3324; --warn:#e2b46a; --warn-soft:#352a17; --bad:#ef8f84; --bad-soft:#3a1f1c;
+  --vio:#b3a5e8; --vio-soft:#2a2442; --pink:#e79ab9; --pink-soft:#3a2030; color-scheme:dark}
+h1,.pn,.hello h2,.gbox h2,.rep h1,.lcard h1{font-family:var(--f-display);font-weight:600;letter-spacing:-.01em}
+.icw{display:inline-flex;vertical-align:-.17em;flex:none}.ic{width:1.08em;height:1.08em;flex:none}
+.sdot{display:inline-block;width:.62em;height:.62em;border-radius:50%;flex:none}
+.dot-r{background:var(--bad)}.dot-y{background:var(--warn)}.dot-g{background:var(--ok)}
+.tabbtn .ti .ic,.tabbtn .ti svg{width:1.35rem;height:1.35rem}
+.now .ico .ic,.now .ico svg{width:1.5rem;height:1.5rem}
+.em,.live .ico,.lead span,.pasture span{animation:none!important}
+.live .ic-hourglass{animation:hgspin 5s ease-in-out infinite}
+@keyframes hgspin{0%,40%{transform:rotate(0)}50%,90%{transform:rotate(180deg)}100%{transform:rotate(360deg)}}
+.block,.pcard,.visit,.now,.cal,details.panel,.flock{box-shadow:0 1px 2px rgba(31,42,35,.05)}
+.btn{font-weight:500}.btn.ghost{background:transparent;border-color:transparent}
+.link{cursor:pointer;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;text-decoration-color:var(--line)}
+.link:hover{color:var(--blue);text-decoration-color:currentColor}
+.link:focus-visible{outline:2px solid var(--blue-2);border-radius:4px}
+.phero{display:flex;gap:16px;align-items:center;padding:6px 2px}
+.pn{margin:0;font-size:1.55rem;line-height:1.2;text-wrap:balance}
+.psub{color:var(--muted);margin:4px 0 8px}
+.qacts{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}
+.qa{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;border-radius:12px;background:var(--surface);border:1px solid var(--line);color:var(--blue);font:inherit;font-weight:600;text-decoration:none;cursor:pointer}
+.info{margin:0;display:flex;flex-direction:column}
+.irow{display:grid;grid-template-columns:minmax(118px,36%) 1fr;gap:12px;padding:10px 0;border-top:1px solid var(--line);align-items:center}
+.irow:first-child{border-top:0}
+.irow dt{color:var(--muted);font-size:.88rem;display:flex;gap:8px;align-items:center}
+.irow dd{margin:0;font-weight:500;overflow-wrap:anywhere;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.muted{color:var(--muted);font-weight:400}
+.bhead h3{margin:0;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.flab{font-size:.8rem;color:var(--muted)}
+details.add summary{cursor:pointer;color:var(--blue);font-weight:600;font-size:.9rem;padding:4px 0}
+details.add[open]{display:flex;flex-direction:column;gap:8px}
+.clist{display:flex;flex-direction:column;gap:10px}.citem{display:flex;gap:10px;align-items:flex-start}.citem .sdot{margin-top:.45em}
+.block.danger{border-color:var(--bad-soft)}
+.hello h2{margin:2px 0 0;font-size:1.6rem}
+.dash{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:10px}
+.dcard{appearance:none;font:inherit;color:inherit;text-align:left;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;min-width:0;box-shadow:0 1px 2px rgba(31,42,35,.05);transition:transform .15s}
+.dcard:active{transform:scale(.98)}.dcard:focus-visible{outline:3px solid var(--blue-2);outline-offset:2px}
+.dh{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700;display:flex;gap:8px;align-items:center}
+.big{font-family:var(--f-display);font-size:2rem;font-weight:600;line-height:1.1;font-variant-numeric:tabular-nums}
+.big small{font-family:var(--f-body);font-size:.9rem;color:var(--muted);font-weight:500}
+.nextv{font-size:.92rem;margin-top:2px}.mini{font-size:.86rem}
+.spark{display:flex;align-items:flex-end;gap:4px;height:36px;margin-top:6px}.spark i{flex:1;background:var(--sky);border-radius:3px 3px 0 0;min-height:3px}.spark i:last-child{background:var(--blue)}
+.due .ic-bell{animation:bellring 2.6s ease-in-out infinite;transform-origin:50% 8%}
+@keyframes bellring{0%,55%,100%{transform:rotate(0)}60%,70%,80%{transform:rotate(-14deg)}65%,75%,85%{transform:rotate(14deg)}}
+.quick{display:flex;flex-wrap:wrap;gap:8px}
+.guide{position:fixed;inset:0;z-index:45;background:rgba(20,26,22,.5);display:flex;align-items:center;justify-content:center;padding:16px}
+.gbox{background:var(--surface);border-radius:22px;max-width:420px;width:100%;padding:26px 22px;display:flex;flex-direction:column;gap:12px;text-align:center;animation:sheetup .25s ease-out}
+.gic{width:64px;height:64px;border-radius:18px;background:var(--sky);color:var(--blue);display:grid;place-items:center;margin:0 auto;font-size:1.6rem}
+.gic .ic,.gic svg{width:30px;height:30px}
+.gbox h2{margin:0;font-size:1.35rem}.gbox p{margin:0;color:var(--muted);line-height:1.55}
+.gdots{display:flex;gap:6px;justify-content:center}.gdots i{width:7px;height:7px;border-radius:50%;background:var(--line)}.gdots i.on{background:var(--blue);width:18px;border-radius:4px}
+.report{position:fixed;inset:0;z-index:48;background:var(--bg);overflow:auto;padding-block:16px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.repbar{max-width:800px;margin:0 auto 12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.rep{max-width:800px;margin:0 auto;background:#fff;color:#1e2a23;border:1px solid #e4ddcf;border-radius:12px;padding:28px 30px;display:flex;flex-direction:column;gap:18px}
+.rhead{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:2px solid #2e6a4f;padding-bottom:12px}
+.rbrand{color:#2e6a4f;font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em}
+.rep h1{margin:4px 0;font-size:1.5rem}.rep h2{font-size:1rem;margin:0 0 8px;color:#2e6a4f}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.kpis div{border:1px solid #e4ddcf;border-radius:10px;padding:10px}
+.kpis b{display:block;font-size:1.4rem;font-family:var(--f-display)}.kpis span{font-size:.8rem;color:#6b756c}
+.rep table{width:100%;border-collapse:collapse;font-size:.9rem}.rep th,.rep td{text-align:left;padding:6px 8px;border-bottom:1px solid #e4ddcf}.rep th{color:#6b756c;font-weight:600}
+.rep .status,.rep footer{color:#6b756c}
+@media (max-width:520px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.rep{padding:18px}}
+@media print{body.hasrep>*:not(#report){display:none!important}#report{position:static;padding:0;background:#fff;overflow:visible}.noprint{display:none!important}.rep{border:0;padding:0;max-width:none}}
+
+.vbox{max-width:440px;padding:16px;gap:10px}.vbox video{width:100%;max-height:72vh;border-radius:14px;background:#000}
 @media (max-width:460px){.visit{grid-template-columns:1fr}.clock{font-size:1.6rem}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
@@ -331,11 +413,10 @@ input[type=search]{-webkit-appearance:none;appearance:none}
 <body>
 <header>
   <div class="wrap">
-    <div class="brand"><label class="pastor" for="ph-pastor" title="Cambiar foto del pastor"><img id="pfoto" alt="Pastor Antonio Sierra J." src="icon-192.png"><span class="staff" aria-hidden="true">🐑</span><input class="vh" type="file" accept="image/*" id="ph-pastor" data-photo="__pastor" aria-label="Cambiar foto del pastor"></label>
-    <div style="min-width:0"><h1>Control del Redil</h1>
-    <div class="sub">Pastor Antonio Sierra J. · Agenda de visitas</div>
-    <div class="verse">“Yo soy el buen pastor; y conozco mis ovejas” · Juan 10:14</div></div><button class="btn sm out" id="logout" hidden>🚪 Salir</button></div>
-    <div class="pasture hdr" aria-hidden="true"><span>🐑</span><span>🐑</span><span>🐏</span><span>🐑</span></div>
+    <div class="brand"><label class="pastor" for="ph-pastor" title="Cambiar foto del pastor"><img id="pfoto" alt="Foto del pastor" src="icon-192.png"><span class="staff" aria-hidden="true">🐑</span><input class="vh" type="file" accept="image/*" id="ph-pastor" data-photo="__pastor" aria-label="Cambiar foto del pastor"></label>
+    <div style="min-width:0"><h1>Cuido mi Rebaño</h1>
+    <div class="sub" id="hsub">Agenda pastoral</div>
+    <div class="verse" id="hverse">“Yo soy el buen pastor; y conozco mis ovejas” · Juan 10:14</div></div><button class="btn sm out" id="logout" hidden>🚪 Salir</button></div>
   </div>
 </header>
 
@@ -345,7 +426,7 @@ input[type=search]{-webkit-appearance:none;appearance:none}
 <div class="toast" id="toast" hidden></div>
 <div class="login" id="login" hidden><form class="lcard" id="lform" novalidate>
   <img src="icon-192.png" alt="">
-  <h1>Control del Redil</h1>
+  <h1>Cuido mi Rebaño</h1>
   <div class="status">Entre con el correo y la contraseña que le dio el pastor.</div>
   <input type="email" id="lemail" autocomplete="username" placeholder="Correo" aria-label="Correo" required>
   <input type="password" id="lpass" autocomplete="current-password" placeholder="Contraseña" aria-label="Contraseña" required>
@@ -356,6 +437,9 @@ input[type=search]{-webkit-appearance:none;appearance:none}
 <nav class="tabbar" id="tabbar" aria-label="Secciones"></nav>
 <button class="fab" id="qopen" aria-label="Buscar persona" title="Buscar persona">🔎</button>
 <div class="sheet" id="sheet" hidden></div>
+<div class="report" id="report" hidden></div>
+<div class="guide" id="guide" hidden></div>
+<div class="guide" id="vplayer" hidden></div>
 <datalist id="dl-cargo"><option>Líder</option><option>Presidente</option><option>Vicepresidente</option><option>Secretario</option><option>Secretaria</option><option>Tesorero</option><option>Tesorera</option><option>Vocal</option><option>Maestro</option><option>Maestra</option><option>Diácono</option><option>Músico</option><option>Ujier</option><option>Director de alabanza</option></datalist>
 <datalist id="dl-area"><option>Iglesia local</option><option>Evangelismo</option><option>Caballeros</option><option>Damas</option><option>Jóvenes</option><option>Escuela dominical</option><option>Niños</option><option>Alabanza</option><option>Misiones</option><option>Comité local</option></datalist>
 <datalist id="dl-hito"><option>Conversión</option><option>Bautizado en el nombre de Jesús</option><option>Recibió el Espíritu Santo</option><option>Matrimonio</option><option>Llamado al ministerio</option><option>Restaurado</option></datalist>
@@ -407,18 +491,19 @@ function flush(){
   saving=saving.then(async()=>{
     const w=[];
     for(const p of Object.values(S.people)){const j=JSON.stringify(sharedOf(p));if(lastP[p.id]!==j){lastP[p.id]=j;w.push(db.collection("people").doc(p.id).set(JSON.parse(j)))}}
+    for(const id of Object.keys(lastP)) if(!S.people[id]){delete lastP[id];w.push(db.collection("people").doc(id).delete())}
     const ids=new Set((S.serv||[]).map(s=>s.id));
     for(const s of S.serv||[]){const j=JSON.stringify(s);if(lastV[s.id]!==j){lastV[s.id]=j;w.push(db.collection("serv").doc(s.id).set(JSON.parse(j)))}}
     for(const id of Object.keys(lastV)) if(!ids.has(id)){delete lastV[id];w.push(db.collection("serv").doc(id).delete())}
     if(isPastor()){
-      const cj=JSON.stringify({pastorFoto:S.pastorFoto||null});if(cj!==lastCfg){lastCfg=cj;w.push(db.doc("config/app").set(JSON.parse(cj)))}
+      const cj=JSON.stringify(cfgOf());if(cj!==lastCfg){lastCfg=cj;w.push(db.doc("config/app").set(JSON.parse(cj)))}
       if(PRIV){const pj=JSON.stringify(privOf());if(pj!==lastPriv){lastPriv=pj;w.push(db.doc(PRIV).set({estado:pj,at:Date.now()}))}}
     }
     await Promise.all(w);
   }).catch(()=>{lastP={};lastV={};lastCfg="";lastPriv="";toast("No se pudo guardar en la nube. Revise la conexión; se intentará de nuevo.")});
   return saving;
 }
-function markSynced(){lastP={};lastV={};for(const p of Object.values(S.people))lastP[p.id]=JSON.stringify(sharedOf(p));for(const s of S.serv||[])lastV[s.id]=JSON.stringify(s);lastCfg=JSON.stringify({pastorFoto:S.pastorFoto||null});lastPriv=PRIV?JSON.stringify(privOf()):""}
+function markSynced(){lastP={};lastV={};for(const p of Object.values(S.people))lastP[p.id]=JSON.stringify(sharedOf(p));for(const s of S.serv||[])lastV[s.id]=JSON.stringify(s);lastCfg=JSON.stringify(cfgOf());lastPriv=PRIV?JSON.stringify(privOf()):""}
 function softRender(){const a=document.activeElement;if(a&&a.matches&&a.matches("input,textarea,select")){pendingRender=true;return}render()}
 document.addEventListener("focusout",()=>{if(pendingRender){pendingRender=false;setTimeout(()=>{if(!document.activeElement?.matches?.("input,textarea,select"))render();else pendingRender=true},50)}});
 
@@ -521,12 +606,36 @@ function animoji(root){
   }
 }
 /* ---------- secciones ---------- */
-const VIEWS=[["agenda","🗓️","Agenda"],["cal","📅","Calendario"],["rebano","🐑","Rebaño"],["asis","✋","Asistencia"],["apart","🔍","Apartados"],["cuidado","🩹","Cuidado"]];
-let view="agenda", rbFilter="all", rbQuery="", asFilter="all", asQuery="", selServ=null, svDelAsk=false;
+const VIEWS=[["inicio","🏠","Inicio"],["agenda","🗓️","Agenda"],["cal","📅","Calendario"],["rebano","🐑","Rebaño"],["asis","✋","Asistencia"],["apart","🔍","Apartados"],["cuidado","🩹","Cuidado"]];
+let view="inicio", rbFilter="all", rbQuery="", asFilter="all", asQuery="", selServ=null, svDelAsk=false;
 try{const v=localStorage.getItem(LS+"-view");if(v&&VIEWS.some(x=>x[0]===v))view=v}catch(e){}
 const SERV_T=["Escuela dominical","Culto de oración","Culto de enseñanza","Culto evangelístico","Culto de jóvenes","Santa cena","Vigilia","Otro"];
 const FILTERS=[["all","Todos"],["S","🌾 Simpatizantes"],["D","🐑 Damas"],["C","🐏 Caballeros"],["A","🧑 Adolescentes"],["N","🧒 Niños"]];
 const GORD={S:0,D:1,C:2,A:3,N:4};
+function cfgOf(){const a=S.app||{};return {pastorFoto:S.pastorFoto||null,iglesia:a.iglesia||"",pastor:a.pastor||"",verso:a.verso||"",started:true}}
+const VERSO_DEF="“Yo soy el buen pastor; y conozco mis ovejas” · Juan 10:14";
+function paintHeader(){const a=(S&&S.app)||{};const sub=[a.pastor,a.iglesia].filter(Boolean).join(" · ");
+  const hs=$("#hsub"),hv=$("#hverse");if(hs)hs.textContent=sub||"Agenda pastoral";if(hv)hv.textContent=a.verso||VERSO_DEF;
+  document.title=a.iglesia?a.iglesia+" · "+BRAND:BRAND}
+function churchBlock(){const a=S.app||{};
+  return `<section class="block" id="church"><div class="bhead"><h2>⛪ Datos de la iglesia</h2></div>
+    <div class="status">Aparecen arriba en la app. Solo usted los puede cambiar.</div>
+    <input type="text" id="cfg-pastor" placeholder="Nombre del pastor (ej. Pastor Juan Pérez)" value="${esc(a.pastor||"")}" aria-label="Nombre del pastor">
+    <input type="text" id="cfg-iglesia" placeholder="Nombre de la iglesia (ej. IPUC Central)" value="${esc(a.iglesia||"")}" aria-label="Nombre de la iglesia">
+    <input type="text" id="cfg-verso" placeholder="${esc(VERSO_DEF)}" value="${esc(a.verso||"")}" aria-label="Versículo">
+    <div class="row"><button class="btn sm pri" id="cfgsave">💾 Guardar datos</button></div></section>`}
+function addBlock(){return `<section class="block"><div class="bhead"><h2>➕ Agregar persona</h2></div>
+    <div class="row"><input type="text" id="np-n" placeholder="Nombre completo" aria-label="Nombre completo" style="flex:1;min-width:180px">
+    <select id="np-g" aria-label="Grupo">${Object.entries(GROUP).map(([k,l])=>`<option value="${k}">${l}</option>`).join("")}</select>
+    <button class="btn sm pri" id="npadd">➕ Agregar</button></div></section>`}
+function addPerson(){const n=$("#np-n").value.trim();if(!n){toast("Escriba el nombre");return}
+  const g=$("#np-g").value;const id="p"+Date.now().toString(36);
+  S.people[id]={id,n,g,det:g==="S"?"Simpatizante":"",nb:false,tel:"",e:"p",ini:null,fin:null,extra:0,nota:""};
+  save();render();toast("🐑 "+n+" agregado al rebaño");burst(["🐑","🎉"],5);openSheet(id)}
+function deletePerson(id){const p=S.people[id];if(!p)return;
+  for(const d of S.days||[]){const i=d.ids.indexOf(id);if(i>=0)d.ids.splice(i,1)}
+  for(const s of S.serv||[]){const i=s.pres.indexOf(id);if(i>=0)s.pres.splice(i,1)}
+  S.cases=(S.cases||[]).filter(c=>c.pid!==id);delete S.people[id];closeSheet();save();render();toast("Persona eliminada")}
 function people(){return Object.values(S.people).sort((a,b)=>GORD[a.g]-GORD[b.g]||a.n.localeCompare(b.n,"es"))}
 function norm(s){return String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"")}
 function servs(){return (S.serv||[]).slice().sort((a,b)=>a.f<b.f?1:a.f>b.f?-1:(b.at||0)-(a.at||0))}
@@ -544,7 +653,7 @@ function ageCivil(p){return `<div class="fields"><label class="agebox" title="Ed
 function dayOpts(label,skip){return `<option value="">${label}</option>`+S.days.map((d,i)=>i===skip||d.off||d.f<todayStr()?"":`<option value="${i}">${dayLabel(d.f).w} ${dayLabel(d.f).n}</option>`).join("")}
 function agendaTag(p){const di=findDay(p.id);return di>=0?`<span class="tag conf">📅 Visita: ${dayLabel(S.days[di].f).s} ${dayLabel(S.days[di].f).n}</span>`:`<select data-add="${p.id}" aria-label="Agendar visita a ${esc(p.n)}">${dayOpts("📅 Agendar visita…",-1)}</select>`}
 
-function allowedViews(){return isPastor()?VIEWS:VIEWS.filter(v=>v[0]==="rebano"||v[0]==="asis")}
+function allowedViews(){return isPastor()?VIEWS:VIEWS.filter(v=>v[0]==="inicio"||v[0]==="rebano"||v[0]==="asis")}
 function renderNav(){
   const ap=Object.values(S.people).filter(p=>p.apart).length, cu=(S.cases||[]).filter(c=>c.estado!=="Resuelto").length;
   const badge={apart:ap,cuidado:cu};
@@ -575,7 +684,8 @@ function weekStrip(selF,t){
 /* --- Agenda --- */
 function viewAgenda(t){
   const day=S.days[sel], sc=schedule(sel), isToday=day.f===t;
-  let h=`<section class="block"><div class="bhead"><h2>🗓️ Agenda de visitas</h2><span class="status">${MESES[+day.f.slice(5,7)-1]} ${day.f.slice(0,4)}</span></div>${weekStrip(day.f,t)}
+  let h=(!(S.app&&S.app.pastor))?`<button class="mrow warnblock" data-view="rebano" id="gocfg"><span style="font-size:1.4rem">⛪</span><span class="min0" style="flex:1"><b>Complete los datos de su iglesia</b><small class="status">Nombre del pastor y de la iglesia. Están al final de la pestaña Rebaño.</small></span><span>›</span></button>`:"";
+  h+=`<section class="block"><div class="bhead"><h2>🗓️ Agenda de visitas</h2><span class="status">${MESES[+day.f.slice(5,7)-1]} ${day.f.slice(0,4)}</span></div>${weekStrip(day.f,t)}
     <div class="bar"><button class="chip" id="am" aria-pressed="${day.am}">🌅 Mañana 9–12</button><button class="chip" id="pm" aria-pressed="${day.pm}">🌇 Tarde 3–6</button><button class="chip off" id="off" aria-pressed="${!!day.off}">${day.off?"🚫 No puedo este día":"🙅 ¿No puede este día?"}</button></div>
     <details class="mini"><summary class="status">⚙️ Duración de visitas y traslado</summary><div class="bar" style="margin-top:8px">
       <label class="status">⏱️ Visita <select id="dur">${[20,30,40,45,60].map(v=>`<option ${v===S.cfg.dur?"selected":""} value="${v}">${v} min</option>`).join("")}</select></label>
@@ -598,7 +708,7 @@ function viewAgenda(t){
     <div class="status" style="margin-top:6px">Toque “Llenar este día” para completar los espacios libres, o agregue a alguien a un día.</div>
     <div class="filters">${FILTERS.map(([k,l])=>`<button class="chip" data-wf="${k}" aria-pressed="${wlFilter===k}">${l}</button>`).join("")}
     <span class="spacer"></span><button class="btn sm gold" id="fill">✨ Llenar este día</button></div>
-    <div class="wl">${wl.filter(id=>wlFilter==="all"||S.people[id].g===wlFilter).map(id=>{const p=S.people[id];return `<div class="wlrow"><div class="nm whorow">${avatar(p,true,38)}<div class="min0"><div class="name" style="font-size:.95rem">${esc(p.n)}</div><div class="tags">${tagsFor(p)}</div></div></div>
+    <div class="wl">${wl.filter(id=>wlFilter==="all"||S.people[id].g===wlFilter).map(id=>{const p=S.people[id];return `<div class="wlrow"><div class="nm whorow">${avatar(p,true,38)}<div class="min0"><div class="name link" style="font-size:.95rem" data-sp="${p.id}" role="button" tabindex="0">${esc(p.n)}</div><div class="tags">${tagsFor(p)}</div></div></div>
       <select data-add="${id}" aria-label="Agregar a un día">${dayOpts("Agregar a…",-1)}</select></div>`}).join("")||`<div class="status">Vacía.</div>`}</div></details>`;
   return h;
 }
@@ -611,7 +721,7 @@ function viewCal(t){
   h+=`<section class="block"><div class="bhead"><h2>📋 Próximos días</h2></div><div class="mlist">`+(up.length?up.map(d=>{const done=d.ids.filter(id=>S.people[id]?.e==="hecha").length;const l=dayLabel(d.f);
     return `<button class="mrow" data-date="${d.f}"><span class="mdate"><b>${l.n}</b><small>${l.s}</small></span><span class="min0" style="flex:1"><b>${l.w} ${l.n} de ${MESES[+d.f.slice(5,7)-1]}</b><small class="status">${d.off?"🚫 No disponible"+(d.offm?" · "+esc(d.offm):""):`🐑 ${d.ids.length} visitas · ✅ ${done} hechas`}</small></span><span aria-hidden="true">›</span></button>`}).join(""):`<div class="status">No hay días con visitas programadas.</div>`)+`</div></section>`;
   const seg=(S.cases||[]).filter(c=>c.seg&&c.estado!=="Resuelto").sort((a,b)=>a.seg<b.seg?-1:1);
-  if(seg.length) h+=`<section class="block"><div class="bhead"><h2>🔔 Volver a visitar</h2></div><div class="mlist">`+seg.map(c=>{const p=S.people[c.pid]||{n:"(persona)"};return `<div class="mrow"><span class="mdate"><b>${+c.seg.slice(8)}</b><small>${MESES[+c.seg.slice(5,7)-1].slice(0,3)}</small></span>${avatar(p,false,32)}<span class="min0" style="flex:1"><b>${esc(p.n)}</b><small class="status">${TIPO_E[c.tipo]||""} ${esc(c.texto).slice(0,60)}</small></span></div>`}).join("")+`</div></section>`;
+  if(seg.length) h+=`<section class="block"><div class="bhead"><h2>🔔 Volver a visitar</h2></div><div class="mlist">`+seg.map(c=>{const p=S.people[c.pid]||{n:"(persona)"};return `<div class="mrow"><span class="mdate"><b>${+c.seg.slice(8)}</b><small>${MESES[+c.seg.slice(5,7)-1].slice(0,3)}</small></span>${avatar(p,false,32)}<span class="min0" style="flex:1"><b class="link" data-sp="${p.id}" role="button" tabindex="0">${esc(p.n)}</b><small class="status">${TIPO_E[c.tipo]||""} ${esc(c.texto).slice(0,60)}</small></span></div>`}).join("")+`</div></section>`;
   return h;
 }
 
@@ -620,18 +730,18 @@ function viewRebano(){
   const areas={};for(const p of people())for(const c of (p.cargos||[]).filter(c=>!c.hasta))(areas[c.area||"Iglesia"]=areas[c.area||"Iglesia"]||[]).push({p,c});
   const dir=Object.keys(areas).length?`<section class="block"><div class="bhead"><h2>🏅 Cargos en la iglesia</h2></div><div class="dir">${Object.entries(areas).sort().map(([a,L])=>`<div class="dirg"><b>${esc(a)}</b>${L.map(({p,c})=>`<button data-sp="${p.id}">${esc(c.cargo)}: ${esc(p.n)}</button>`).join("")}</div>`).join("")}</div></section>`:"";
   return flockCard()+dir+`<section class="block"><div class="bhead"><h2>🐑 Directorio del rebaño</h2></div>
-    <input type="search" id="rbq" class="search" placeholder="🔍 Buscar por nombre…" value="${esc(rbQuery)}" aria-label="Buscar persona">
+    <input type="search" id="rbq" class="search" placeholder="Buscar por nombre…" value="${esc(rbQuery)}" aria-label="Buscar persona">
     <div class="filters">${FILTERS.concat(isPastor()?[["lider","🏅 Con cargo"],["apart","🔍 Apartados"]]:[["lider","🏅 Con cargo"]]).map(([k,l])=>`<button class="chip" data-rf="${k}" aria-pressed="${rbFilter===k}">${l}</button>`).join("")}</div></section>
-    <div class="grid" id="plist">${rList()}</div>${isPastor()?`<section class="block"><div class="bhead"><h2>💾 Copia de seguridad</h2></div><div class="status">Descargue de vez en cuando una copia con todos los datos y guárdela en Archivos o en su correo.</div><div class="row"><button class="btn sm pri" id="backup">💾 Descargar copia</button></div></section>`:""}`;
+    ${addBlock()}<div class="grid" id="plist">${rList()}</div>${isPastor()?churchBlock()+`<section class="block"><div class="bhead"><h2>💾 Copia de seguridad</h2></div><div class="status">Descargue de vez en cuando una copia con todos los datos y guárdela en Archivos o en su correo.</div><div class="row"><button class="btn sm pri" id="backup">💾 Descargar copia</button></div></section>`:""}`;
 }
 function rList(){
   const q=norm(rbQuery);
   const L=people().filter(p=>(rbFilter==="all"||(rbFilter==="apart"?p.apart:rbFilter==="lider"?(p.cargos||[]).some(c=>!c.hasta):p.g===rbFilter))&&(!q||norm(p.n).includes(q)));
-  return L.length?L.map(pcard).join(""):`<div class="empty">No se encontró a nadie con ese filtro.</div>`;
+  return L.length?L.map(pcard).join(""):`<div class="empty">${Object.keys(S.people).length?"No se encontró a nadie con ese filtro.":"🐑 Su rebaño está vacío. Agregue a la primera persona arriba."}</div>`;
 }
 function pcard(p){
   const st=attStats(p.id);
-  return `<article class="pcard"><div class="whorow">${avatar(p,true)}<div class="min0"><div class="name">${esc(p.n)}</div><div class="tags">${tagsFor(p)}${p.apart?`<span class="tag bad">🔍 Apartado</span>`:""}</div></div></div>
+  return `<article class="pcard"><div class="whorow">${avatar(p,true)}<div class="min0"><div class="name link" data-sp="${p.id}" role="button" tabindex="0">${esc(p.n)}</div><div class="tags">${tagsFor(p)}${p.apart?`<span class="tag bad">🔍 Apartado</span>`:""}</div></div></div>
     ${ageCivil(p)}${telFor(p)}
     <div class="attline"><span>✋ ${st.tot?`${st.pres} de ${st.tot} servicios · <b>${st.pct}%</b>`:"Sin registros de asistencia"}</span>${dotsHtml(st)}${st.tot?`<span class="tag">${freqLabel(st)}</span>`:""}</div>
     <div class="acts"><button class="btn sm pri" data-sp="${p.id}">📄 Ficha</button>${isPastor()?agendaTag(p)+`<button class="btn sm" data-ap="${p.apart?"unmark":"mark"}" data-pid="${p.id}">${p.apart?"🙌 Ya no está apartado":"🔍 Marcar apartado"}</button>`:""}</div></article>`;
@@ -647,14 +757,14 @@ function viewAsis(){
   if(cur){
     const tot=Object.keys(S.people).length;
     h+=`<section class="block"><div class="bhead"><h2>📋 ${esc(cur.tipo)} · ${dayLabel(cur.f).w} ${fmtF(cur.f)}</h2><span class="count"><b>${cur.pres.length}</b> de ${tot} presentes</span></div>
-      <input type="search" id="asq" class="search" placeholder="🔍 Buscar para marcar…" value="${esc(asQuery)}" aria-label="Buscar persona">
+      <input type="search" id="asq" class="search" placeholder="Buscar para marcar…" value="${esc(asQuery)}" aria-label="Buscar persona">
       <div class="filters">${FILTERS.map(([k,l])=>`<button class="chip" data-af="${k}" aria-pressed="${asFilter===k}">${l}</button>`).join("")}</div>
       <div class="bar" style="margin-top:8px"><button class="btn sm" id="asall">✅ Todos presentes</button><button class="btn sm" id="asclr">↩️ Quitar todos</button><span class="spacer"></span><button class="btn sm" id="svdel">${svDelAsk?"¿Seguro? Toque otra vez":"🗑️ Borrar servicio"}</button></div>
       <div class="alist" id="alist">${aList()}</div></section>`;
   }
   const st=people().map(p=>({p,st:attStats(p.id)})).filter(x=>x.st.tot&&(asFilter==="all"||x.p.g===asFilter)).sort((a,b)=>b.st.pct-a.st.pct||b.st.pres-a.st.pres);
   h+=`<section class="block"><div class="bhead"><h2>📊 Frecuencia de asistencia</h2><span class="status">${L.length} servicios registrados</span></div>
-    ${st.length?`<div class="flist">`+st.map(({p,st})=>`<div class="frow">${avatar(p,false,32)}<div class="min0" style="flex:1"><div class="fname"><b>${esc(p.n)}</b><span class="tag">${freqLabel(st)}</span></div>
+    ${st.length?`<div class="flist">`+st.map(({p,st})=>`<div class="frow">${avatar(p,false,32)}<div class="min0" style="flex:1"><div class="fname"><b class="link" data-sp="${p.id}" role="button" tabindex="0">${esc(p.n)}</b><span class="tag">${freqLabel(st)}</span></div>
       <div class="fbar"><i style="width:${st.pct}%"></i></div>
       <small class="status">${st.pres} de ${st.tot} servicios · ${st.pct}%${st.perMonth!=null?` · ≈ ${st.perMonth} veces al mes`:""}${st.last?` · última vez: ${fmtF(st.last)}`:" · no ha asistido"}</small></div></div>`).join("")+`</div>`:`<div class="status">Aún no hay asistencia registrada.</div>`}</section>`;
   return h;
@@ -673,14 +783,14 @@ function viewApart(){
   let h=`<section class="block"><div class="bhead"><h2>🔍 Hermanos apartados</h2><span class="count"><b>${ap.length}</b></span></div>
     <div class="status">Hermanos que se han alejado de la iglesia. Anote el motivo, los pasos que va dando y agende visitas para restaurarlos.</div>
     <div class="row" style="margin-top:8px"><select id="apadd" aria-label="Agregar hermano apartado"><option value="">➕ Agregar un hermano apartado…</option>${all.filter(p=>!p.apart).map(p=>`<option value="${p.id}">${esc(p.n)}</option>`).join("")}</select></div></section>`;
-  if(sug.length) h+=`<section class="block warnblock"><div class="bhead"><h2>⚠️ Posibles apartados</h2></div><div class="status">Faltaron a los últimos 3 servicios o más.</div><div class="mlist">`+sug.map(p=>{const st=attStats(p.id);return `<div class="mrow">${avatar(p,false,34)}<span class="min0" style="flex:1"><b>${esc(p.n)}</b><small class="status">Faltó a ${st.streak} seguidos${st.last?` · última vez ${fmtF(st.last)}`:" · no ha asistido"}</small></span><button class="btn sm" data-ap="mark" data-pid="${p.id}">🔍 Marcar</button></div>`}).join("")+`</div></section>`;
+  if(sug.length) h+=`<section class="block warnblock"><div class="bhead"><h2>⚠️ Posibles apartados</h2></div><div class="status">Faltaron a los últimos 3 servicios o más.</div><div class="mlist">`+sug.map(p=>{const st=attStats(p.id);return `<div class="mrow">${avatar(p,false,34)}<span class="min0" style="flex:1"><b class="link" data-sp="${p.id}" role="button" tabindex="0">${esc(p.n)}</b><small class="status">Faltó a ${st.streak} seguidos${st.last?` · última vez ${fmtF(st.last)}`:" · no ha asistido"}</small></span><button class="btn sm" data-ap="mark" data-pid="${p.id}">🔍 Marcar</button></div>`}).join("")+`</div></section>`;
   h+=`<div class="grid">`+(ap.length?ap.map(apcard).join(""):`<div class="empty">🙌 No hay hermanos apartados registrados.</div>`)+`</div>`;
-  if(rest.length) h+=`<section class="block"><div class="bhead"><h2>🙌 Restaurados</h2></div><div class="mlist">`+rest.map(p=>`<div class="mrow">${avatar(p,false,32)}<span class="min0" style="flex:1"><b>${esc(p.n)}</b><small class="status">Restaurado el ${fmtF(p.rest)}</small></span></div>`).join("")+`</div></section>`;
+  if(rest.length) h+=`<section class="block"><div class="bhead"><h2>🙌 Restaurados</h2></div><div class="mlist">`+rest.map(p=>`<div class="mrow">${avatar(p,false,32)}<span class="min0" style="flex:1"><b class="link" data-sp="${p.id}" role="button" tabindex="0">${esc(p.n)}</b><small class="status">Restaurado el ${fmtF(p.rest)}</small></span></div>`).join("")+`</div></section>`;
   return h;
 }
 function apcard(p){
   const a=p.apart, st=attStats(p.id);
-  return `<article class="pcard apcard"><div class="whorow">${avatar(p,true)}<div class="min0"><div class="name">${esc(p.n)}</div><div class="tags">${tagsFor(p)}</div></div></div>
+  return `<article class="pcard apcard"><div class="whorow">${avatar(p,true)}<div class="min0"><div class="name link" data-sp="${p.id}" role="button" tabindex="0">${esc(p.n)}</div><div class="tags">${tagsFor(p)}</div></div></div>
     <div class="row"><label class="status" for="apd-${p.id}">Apartado desde</label><input type="date" id="apd-${p.id}" data-apd="${p.id}" value="${a.desde||""}"></div>
     <input type="text" id="apm-${p.id}" data-apm="${p.id}" value="${esc(a.motivo||"")}" placeholder="Motivo: trabajo, ofensa, enfermedad, desánimo…">
     <div class="status">✋ ${st.last?`Última asistencia: ${fmtF(st.last)}`:"Sin asistencia registrada"}</div>
@@ -697,9 +807,10 @@ function render(){
   const t=todayStr();
   if(!S.cases) S.cases=[]; if(!S.serv) S.serv=[];
   if(S.pastorFoto&&String(S.pastorFoto).startsWith("data:image/")){const im=$("#pfoto");if(im&&im.getAttribute("src")!==S.pastorFoto)im.src=S.pastorFoto}
+  paintHeader();
   if(!allowedViews().some(v=>v[0]===view)) view=allowedViews()[0][0];
   renderNav();
-  let h=view==="cal"?viewCal(t):view==="rebano"?viewRebano():view==="asis"?viewAsis():view==="apart"?viewApart():view==="cuidado"?viewCuidado():viewAgenda(t);
+  let h=view==="inicio"?viewInicio(t):view==="cal"?viewCal(t):view==="rebano"?viewRebano():view==="asis"?viewAsis():view==="apart"?viewApart():view==="cuidado"?viewCuidado():viewAgenda(t);
   h+=`<div class="status" id="sync" style="text-align:center">☁️ Guardado en la nube del redil.</div>`;
   $("#main").innerHTML=h;
   animoji($("#main"));animoji($("#tabbar"));animoji($(".brand"));animoji($("#qopen"));
@@ -707,8 +818,11 @@ function render(){
 }
 function setView(v){view=v;try{localStorage.setItem(LS+"-view",v)}catch(e){}render();window.scrollTo({top:0,behavior:"smooth"})}
 function viewClick(b){
+  if(b.id==="gocfg"){setView("rebano");setTimeout(()=>{const c=$("#church");if(c)c.scrollIntoView({behavior:"smooth"})},150);return true}
   if(b.dataset.view){setView(b.dataset.view);return true}
   if(b.id==="backup"){downloadBackup();return true}
+  if(b.id==="npadd"){addPerson();return true}
+  if(b.id==="cfgsave"){S.app=Object.assign(S.app||{},{pastor:$("#cfg-pastor").value.trim(),iglesia:$("#cfg-iglesia").value.trim(),verso:$("#cfg-verso").value.trim()});save();render();toast("⛪ Datos de la iglesia guardados");return true}
   if(b.dataset.rf){rbFilter=b.dataset.rf;render();return true}
   if(b.dataset.af){asFilter=b.dataset.af;render();return true}
   if(b.dataset.sv){selServ=b.dataset.sv;svDelAsk=false;render();return true}
@@ -802,7 +916,7 @@ function casesPanel(){
   if(!list.length) h+=`<div class="status" style="padding:8px 0">${all.length?"No hay casos en este filtro.":"Aún no hay problemas anotados. En cada visita toque “Anotar problema” para registrar lo que encontró."}</div>`;
   for(const c of list){
     const p=S.people[c.pid]||{n:"(persona)"}; const est=c.estado.split(" ")[0];
-    h+=`<div class="case"><div class="casehead"><div class="whorow" style="flex:1;min-width:140px">${avatar(p,false,32)}<div class="name">${esc(p.n)}</div></div><span class="tag">${TIPO_E[c.tipo]||""} ${esc(c.tipo)}</span><span class="tag ${est}">${EST_E[c.estado]||""} ${esc(c.estado)}</span></div>
+    h+=`<div class="case"><div class="casehead"><div class="whorow" style="flex:1;min-width:140px">${avatar(p,false,32)}<div class="name link" data-sp="${p.id}" role="button" tabindex="0">${esc(p.n)}</div></div><span class="tag">${TIPO_E[c.tipo]||""} ${esc(c.tipo)}</span><span class="tag ${est}">${EST_E[c.estado]||""} ${esc(c.estado)}</span></div>
       <div class="status">Anotado el ${fmtF(c.fecha)}${c.seg?` · volver el <b>${fmtF(c.seg)}</b>`:""}</div>
       <div class="txt">${esc(c.texto)}</div>
       ${c.notas?.length?`<div class="notes">${c.notas.map(n=>`<div><small>${fmtF(n.f)}:</small> ${esc(n.t)}</div>`).join("")}</div>`:""}
@@ -863,20 +977,20 @@ function card(x,isToday){
     acts+=`<button class="btn sm" data-a="up" data-id="${p.id}" aria-label="Subir">↑</button><button class="btn sm" data-a="down" data-id="${p.id}" aria-label="Bajar">↓</button>
     <select data-move="${p.id}" aria-label="Pasar a otro día"><option value="">Pasar a…</option>${S.days.map((d,i)=>i===sel?"":`<option value="${i}">${dayLabel(d.f).w} ${dayLabel(d.f).n}</option>`).join("")}<option value="wl">Lista de espera</option></select>`;
   }
-  return `<div class="visit ${cls}">${time}<div class="body"><div class="whorow">${avatar(p,true)}<div class="min0"><div class="name">${esc(p.n)}</div><div class="tags">${tagsFor(p)}${p.edad!=null&&p.edad!==""?`<span class="tag">🎂 ${p.edad} años</span>`:""}</div></div></div>${telFor(p)}
+  return `<div class="visit ${cls}">${time}<div class="body"><div class="whorow">${avatar(p,true)}<div class="min0"><div class="name link" data-sp="${p.id}" role="button" tabindex="0">${esc(p.n)}</div><div class="tags">${tagsFor(p)}${p.edad!=null&&p.edad!==""?`<span class="tag">🎂 ${p.edad} años</span>`:""}</div></div></div>${telFor(p)}
     <div class="acts">${acts}<button class="btn sm" data-sp="${p.id}">📄 Ficha</button><button class="btn sm" data-c="probopen" data-pid="${p.id}">${probOpen===p.id?"✖️ Cancelar":"📝 Anotar problema"}</button></div>
     ${probOpen===p.id?probForm(p.id):""}${npOpen===p.id?npForm(p.id):""}
     <details><summary class="status">Notas${p.nota?" ✎":""}</summary><textarea id="nota-${p.id}" data-nota="${p.id}" placeholder="Petición de oración, si quiere bautizarse, próximo paso…">${esc(p.nota)}</textarea>${p.foto?`<button class="btn sm" data-c="phdel" data-pid="${p.id}" style="margin-top:6px">🗑️ Quitar foto</button>`:""}</details></div></div>`;
 }
 
 /* ---------- búsqueda rápida y ficha ---------- */
-let sheetOpen=false, sheetQ="", sheetPid=null, cgDelAsk=null;
+let sheetOpen=false, sheetQ="", sheetPid=null, cgDelAsk=null, pdelAsk=null;
 function openSheet(pid){sheetOpen=true;sheetPid=pid||null;document.body.style.overflow="hidden";renderSheet();if(!pid)setTimeout(()=>{const i=$("#sq");if(i)i.focus()},60)}
 function closeSheet(){sheetOpen=false;sheetPid=null;document.body.style.overflow="";$("#sheet").hidden=true}
 function qResults(){
   const q=norm(sheetQ.trim());
   const L=people().filter(p=>!q||norm(p.n).includes(q)||(p.tel||"").includes(q)).slice(0,40);
-  return L.length?L.map(p=>`<button class="mrow" data-sp="${p.id}">${avatar(p,false,38)}<span class="min0" style="flex:1"><b>${esc(p.n)}</b><small class="status">${GROUP[p.g]}${p.tel?" · 📱 "+esc(p.tel):""}${p.apart?" · 🔍 Apartado":""}</small></span><span aria-hidden="true">›</span></button>`).join(""):`<div class="empty">No se encontró a nadie con “${esc(sheetQ)}”.</div>`;
+  return L.length?L.map(p=>`<button class="mrow" data-sp="${p.id}">${avatar(p,false,38)}<span class="min0" style="flex:1"><b class="link" data-sp="${p.id}" role="button" tabindex="0">${esc(p.n)}</b><small class="status">${GROUP[p.g]}${p.tel?" · 📱 "+esc(p.tel):""}${p.apart?" · 🔍 Apartado":""}</small></span><span aria-hidden="true">›</span></button>`).join(""):`<div class="empty">No se encontró a nadie con “${esc(sheetQ)}”.</div>`;
 }
 function detSel(p){
   if(p.g==="S"||p.g==="A"||p.g==="N") return "";
@@ -892,43 +1006,17 @@ function renderSheet(){
       <input type="search" id="sq" class="search" placeholder="Escriba un nombre o un celular…" value="${esc(sheetQ)}" autocomplete="off" aria-label="Buscar persona">
       <div class="qres" id="qres">${qResults()}</div>`;
   } else {
-    const p=S.people[sheetPid], st=attStats(p.id), last=servs()[0];
-    const cs=(S.cases||[]).filter(c=>c.pid===p.id);
-    h=`<div class="shead"><button class="btn sm" id="sback">‹ Buscar</button><h2>📄 Ficha</h2><button class="btn sm" id="sclose" aria-label="Cerrar">✖️</button></div>
-      <section class="block"><div class="whorow">${avatar(p,true,64)}<div class="min0" style="flex:1"><input class="pname" id="pn-${p.id}" data-pname="${p.id}" value="${esc(p.n)}" aria-label="Nombre"><div class="tags" style="margin-top:6px">${tagsFor(p)}${p.apart?`<span class="tag bad">🔍 Apartado</span>`:""}</div></div></div>
-        <div class="fields"><select data-pg="${p.id}" aria-label="Grupo">${Object.entries(GROUP).map(([k,l])=>`<option value="${k}" ${p.g===k?"selected":""}>${l}</option>`).join("")}</select>${detSel(p)}</div>
-        ${ageCivil(p)}${telFor(p)}</section>
-      <section class="block"><div class="bhead"><h2>📜 Hoja de vida</h2></div>
-        <div class="sub2">🏅 Cargos actuales</div>
-        ${(p.cargos||[]).filter(c=>!c.hasta).map(c=>`<div class="cargo"><span class="min0" style="flex:1"><b>🏅 ${esc(c.cargo)}</b>${c.area?` <span class="status">· ${esc(c.area)}</span>`:""}<small class="status">${c.desde?"Desde "+fmtF(c.desde)+" "+c.desde.slice(0,4):"Actualmente"}</small></span><button class="btn sm" data-cgend="${c.id}">🏁 Terminó</button><button class="btn sm" data-cgdel="${c.id}" aria-label="Borrar cargo">${cgDelAsk===c.id?"¿Borrar?":"🗑️"}</button></div>`).join("")||`<div class="status">Sin cargos registrados.</div>`}
-        <div class="row"><input type="text" id="cg-c" list="dl-cargo" placeholder="Cargo: líder, secretario…" aria-label="Cargo"><input type="text" id="cg-a" list="dl-area" placeholder="Área: evangelismo, caballeros…" aria-label="Área o ministerio"></div>
-        <div class="row"><label class="status" for="cg-d">Desde</label><input type="date" id="cg-d"><button class="btn sm pri" id="cgadd">➕ Agregar cargo</button></div>
-        ${(p.cargos||[]).some(c=>c.hasta)?`<div class="sub2">🕰️ Cargos anteriores</div><div class="notes">${p.cargos.filter(c=>c.hasta).map(c=>`<div>${esc(c.cargo)}${c.area?" · "+esc(c.area):""} <small>(${c.desde?fmtF(c.desde)+" "+c.desde.slice(0,4):"?"} – ${fmtF(c.hasta)} ${c.hasta.slice(0,4)})</small></div>`).join("")}</div>`:""}
-        <div class="sub2">⭐ Momentos de su vida espiritual</div>
-        ${(p.hitos||[]).length?`<div class="timeline">${p.hitos.slice().sort((a,b)=>(a.f||"")<(b.f||"")?-1:1).map(x=>`<div class="hito"><i></i><span class="min0" style="flex:1"><small class="status">${x.f?fmtF(x.f)+" "+x.f.slice(0,4):"Sin fecha"}</small><span>${esc(x.t)}</span></span><button class="btn sm" data-htdel="${x.id}" aria-label="Borrar">✖️</button></div>`).join("")}</div>`:`<div class="status">Ej.: conversión, bautismo, recibió el Espíritu Santo, matrimonio, llamado al ministerio.</div>`}
-        <div class="row"><input type="date" id="ht-f" aria-label="Fecha"><input type="text" id="ht-t" list="dl-hito" placeholder="¿Qué pasó?" aria-label="Momento"><button class="btn sm pri" id="htadd">➕ Agregar</button></div>
-      </section>
-      ${isPastor()?`<section class="block"><div class="bhead"><h2>📝 Anotaciones</h2></div><textarea id="snota-${p.id}" data-nota="${p.id}" placeholder="Petición de oración, situación familiar, si quiere bautizarse…">${esc(p.nota)}</textarea></section>`:""}
-      <section class="block"><div class="bhead"><h2>✋ Asistencia</h2></div>
-        <div class="attline"><span>${st.tot?`${st.pres} de ${st.tot} servicios · <b>${st.pct}%</b>${st.last?` · última vez ${fmtF(st.last)}`:""}`:"Sin registros"}</span>${dotsHtml(st)}${st.tot?`<span class="tag">${freqLabel(st)}</span>`:""}</div>
-        ${last?`<button class="arow ${last.pres.includes(p.id)?"on":""}" data-satt="${last.id}"><span class="min0" style="flex:1;text-align:left"><b>${esc(last.tipo)}</b><small class="status">${dayLabel(last.f).w} ${fmtF(last.f)} · último servicio</small></span><span class="amark">${last.pres.includes(p.id)?"✋ Presente":"Ausente"}</span></button>`:""}</section>
-      ${isPastor()?`<section class="block"><div class="bhead"><h2>🐑 Visita y estado</h2></div>
-        <div class="acts">${agendaTag(p)}<button class="btn sm" data-ap="${p.apart?"unmark":"mark"}" data-pid="${p.id}">${p.apart?"🙌 Ya no está apartado":"🔍 Marcar apartado"}</button></div>
-        ${p.apart?`<input type="text" id="sapm-${p.id}" data-apm="${p.id}" value="${esc(p.apart.motivo||"")}" placeholder="Motivo por el que está apartado">`:""}</section>
-      <section class="block"><div class="bhead"><h2>🩹 Problemas y cuidado</h2><span class="count"><b>${cs.filter(c=>c.estado!=="Resuelto").length}</b> abiertos</span></div>
-        ${cs.length?`<div class="notes">${cs.map(c=>`<div><small>${fmtF(c.fecha)} · ${EST_E[c.estado]} ${esc(c.estado)}:</small> ${TIPO_E[c.tipo]||""} ${esc(c.texto)}</div>`).join("")}</div>`:""}
-        <div class="row"><select id="spt" aria-label="Tipo de problema">${TIPOS.map(x=>`<option value="${x}">${TIPO_E[x]} ${x}</option>`).join("")}</select></div>
-        <textarea id="spx" placeholder="Anotar un problema o necesidad nueva…"></textarea>
-        <div class="row"><button class="btn sm pri" id="sprob">💾 Guardar problema</button></div></section>`:""}`;
+    h=profileHtml(S.people[sheetPid]);
   }
-  el.innerHTML=`<div class="sheetbox" role="dialog" aria-modal="true" aria-label="Búsqueda rápida">${h}</div>`;
+  el.innerHTML=`<div class="sheetbox" role="dialog" aria-modal="true" aria-label="Perfil">${h}</div>`;
   animoji(el);
 }
 function sheetClick(b){
   if(b.id==="qopen"){sheetQ="";openSheet();return true}
-  if(b.dataset.sp){if(!sheetOpen){sheetOpen=true;document.body.style.overflow="hidden"}sheetPid=b.dataset.sp;renderSheet();$("#sheet").scrollTop=0;return true}
+  if(b.dataset.sp){if(!sheetOpen){sheetOpen=true;document.body.style.overflow="hidden"}if(sheetPid!==b.dataset.sp){sheetEdit=false;pdelAsk=null}sheetPid=b.dataset.sp;renderSheet();$("#sheet").scrollTop=0;return true}
   if(!sheetOpen) return false;
   if(b.id==="sclose"){closeSheet();return true}
+  if(b.id==="pdel"){if(pdelAsk!==sheetPid){pdelAsk=sheetPid;renderSheet();return true}pdelAsk=null;deletePerson(sheetPid);return true}
   if(b.id==="cgadd"){const q=S.people[sheetPid];const c=$("#cg-c").value.trim(),a=$("#cg-a").value.trim();if(!c){toast("Escriba el cargo");return true}
     (q.cargos=q.cargos||[]).push({id:"g"+Date.now().toString(36),cargo:c,area:a,desde:$("#cg-d").value||"",hasta:""});save();render();toast("🏅 Cargo agregado");burst(["🏅","⭐"],4);return true}
   if(b.dataset.cgend){const q=S.people[sheetPid];const c=q.cargos.find(x=>x.id===b.dataset.cgend);if(c){c.hasta=todayStr();save();render();toast("🏁 Cargo pasado al historial")}return true}
@@ -971,16 +1059,13 @@ setInterval(tick,1000);
 setInterval(()=>{if(S&&!document.activeElement?.matches("textarea,select,input"))render()},60000);
 
 /* ---------- eventos ---------- */
-function burst(em,n=6){
-  if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  for(let i=0;i<n;i++){const s=document.createElement("span");s.className="burst";s.textContent=Array.isArray(em)?em[i%em.length]:em;
-    s.style.left=lastPt.x+"px";s.style.top=lastPt.y+"px";s.style.setProperty("--dx",(Math.random()*120-60)+"px");s.style.animationDelay=(i*40)+"ms";
-    document.body.appendChild(s);setTimeout(()=>s.remove(),1300)}
-}
+function burst(){}
 document.addEventListener("pointerdown",e=>{lastPt={x:e.clientX,y:e.clientY}},true);
 document.addEventListener("click",e=>{
   if(e.target.id==="sheet"){closeSheet();return}
-  const b=e.target.closest("button"); if(!b||!S) return; unlockAudio();
+  const b=e.target.closest("button,[data-sp]"); if(!b) return;
+  if(extraClick(b)) return;
+  if(!S) return; unlockAudio();
   if(sheetClick(b)) return;
   if(viewClick(b)) return;
   if(b.dataset.date){sel=ensureDay(b.dataset.date);calM=b.dataset.date.slice(0,7);probOpen=null;if(view!=="agenda"){setView("agenda");return}render();return}
@@ -996,6 +1081,7 @@ document.addEventListener("click",e=>{
 document.addEventListener("change",e=>{
   const el=e.target; if(!S) return;
   if(sheetChange(el)) return;
+  if(el.id==="repm"){repMonth=el.value;openReport();return}
   if(el.dataset.apd){const q=S.people[el.dataset.apd];if(q.apart){q.apart.desde=el.value;save();toast("Fecha guardada")}return}
   if(el.dataset.apm){const q=S.people[el.dataset.apm];if(q.apart){q.apart.motivo=el.value.trim();save();toast("Motivo guardado")}return}
   if(el.id==="apadd"&&el.value){const q=S.people[el.value];q.apart={desde:todayStr(),motivo:"",pasos:[]};save();render();toast("🔍 "+q.n+" agregado a apartados");return}
@@ -1019,30 +1105,31 @@ document.addEventListener("input",e=>{const el=e.target;if(!S)return;
   if(el.id==="rbq"){rbQuery=el.value;const L=$("#plist");if(L){L.innerHTML=rList();animoji(L)}return}
   if(el.id==="asq"){asQuery=el.value;const L=$("#alist");if(L){L.innerHTML=aList();animoji(L)}return}
   const id=el.dataset?.nota;if(id){S.people[id].nota=el.value;save()}});
-document.addEventListener("keydown",e=>{if(e.key==="Escape"&&sheetOpen)closeSheet()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){if(!$("#vplayer").hidden)closeVideo();else if(!$("#guide").hidden)closeGuide();else if(!$("#report").hidden)closeReport();else if(sheetOpen)closeSheet()}
+  if(e.key==="Enter"&&e.target.matches&&e.target.matches("[data-sp]:not(button)")){e.preventDefault();e.target.click()}});
 document.addEventListener("toggle",e=>{if(!S)return;if(e.target.id==="wlp")S._wlOpen=e.target.open;if(e.target.id==="csp")S._csOpen=e.target.open},true);
 
 /* ---------- arranque ---------- */
 function migrate(){
   let changed=false;
-  for(const f of WEEK){ if(!S.days.some(d=>d.f===f)){ S.days.push({f,am:true,pm:true,ids:[]}); changed=true; } }
+  for(const f of weekOf(todayStr())){ if(!S.days.some(d=>d.f===f)){ S.days.push({f,am:true,pm:true,ids:[]}); changed=true; } }
   S.days.sort((a,b)=>a.f<b.f?-1:1);
   return changed;
 }
-function pickDay(){if(!S.days||!S.days.length){sel=0;return}const t=todayStr();const i=S.days.findIndex(d=>d.f===t);const nx=S.days.findIndex(d=>d.f>t&&d.ids.length);sel=i>=0?i:nx>=0?nx:S.days.length-1}
+function pickDay(){if(!S.days||!S.days.length){sel=0;return}const t=todayStr();const i=S.days.findIndex(d=>d.f===t&&d.ids.length);const nx=S.days.findIndex(d=>d.f>t&&d.ids.length);sel=i>=0?i:nx>=0?nx:S.days.length-1}
 function pickDayOld(){const t=todayStr();const i=S.days.findIndex(d=>d.f===t);sel=i>=0?i:(t>S.days[S.days.length-1].f?S.days.length-1:0)}
 
 function buildS(ps,vs,cf,privJson,role){
   const S2={v:2,people:{},serv:[],days:[],cases:[],cfg:{dur:30,tr:0},_role:role,_wlOpen:S?._wlOpen};
   for(const d of ps.docs) S2.people[d.id]=Object.assign({id:d.id,e:"p",ini:null,fin:null,extra:0,nota:""},clean(d.data()),{id:d.id});
   for(const d of vs.docs) S2.serv.push(Object.assign(clean(d.data()),{id:d.id}));
-  if(cf.exists) S2.pastorFoto=cf.data().pastorFoto||null;
+  if(cf.exists){const c=cf.data();S2.pastorFoto=c.pastorFoto||null;S2.app={iglesia:c.iglesia||"",pastor:c.pastor||"",verso:c.verso||"",started:!!c.started}}else S2.app={iglesia:"",pastor:"",verso:"",started:false};
   if(privJson){const pj=JSON.parse(privJson);S2.days=pj.days||[];S2.cfg=pj.cfg||S2.cfg;S2.cases=pj.cases||[];for(const [id,o] of Object.entries(pj.pv||{})) if(S2.people[id]) Object.assign(S2.people[id],o)}
   return S2;
 }
 function subscribe(){
   db.collection("people").limit(1000).onSnapshot(snap=>{let ch=false;
-    for(const c of snap.docChanges()){if(c.type==="removed")continue;const id=c.doc.id;const d=clean(c.doc.data());const p=S.people[id]||(S.people[id]={id,e:"p",ini:null,fin:null,extra:0,nota:""});
+    for(const c of snap.docChanges()){const id=c.doc.id;if(c.type==="removed"){if(S.people[id]&&lastP[id]!==undefined){delete S.people[id];delete lastP[id];ch=true}continue}const d=clean(c.doc.data());const p=S.people[id]||(S.people[id]={id,e:"p",ini:null,fin:null,extra:0,nota:""});
       const j=JSON.stringify(sharedOf(Object.assign({},d,{id})));if(lastP[id]===j)continue;
       for(const k of SHK)delete p[k];Object.assign(p,d,{id});lastP[id]=JSON.stringify(sharedOf(p));ch=true}
     if(ch)softRender()},()=>{});
@@ -1054,8 +1141,284 @@ function subscribe(){
     if(ch)softRender()},()=>{});
 }
 
+/* ===== Íconos de línea propios (sin depender de internet) ===== */
+const ICO={
+search:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/>',
+hand:'<path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V11M11 11V4a1.5 1.5 0 0 1 3 0v7M14 11V5.5a1.5 1.5 0 0 1 3 0V13c0 4.4-2.6 8-7 8-3.2 0-5-2-5.8-4.4L3.4 13.8a1.6 1.6 0 0 1 2.8-1.4L8 15"/>',
+heart:'<path d="M12 20s-7.2-4.4-9.1-9.2C1.6 7.4 3.7 4 7.2 4c2 0 3.4 1 4.8 2.8C13.4 5 14.8 4 16.8 4c3.5 0 5.6 3.4 4.3 6.8C19.2 15.6 12 20 12 20z"/>',
+"circle-check":'<circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/>',
+award:'<circle cx="12" cy="9" r="5.5"/><path d="M8.6 13.4L7 21l5-2.8 5 2.8-1.6-7.6"/>',
+plus:'<path d="M12 5v14M5 12h14"/>',
+ban:'<circle cx="12" cy="12" r="9"/><path d="M5.7 5.7l12.6 12.6"/>',
+save:'<path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3M8 21v-7h8v7"/>',
+"thumbs-up":'<path d="M7 10v11H4V10zM7 10l4-7c1.5 0 2.5 1 2.5 2.6V9h5.2a2 2 0 0 1 2 2.3l-1.2 7A2 2 0 0 1 17.5 20H7"/>',
+note:'<path d="M13 21H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9l4 4v4"/><path d="M8 9h6M8 13h4M19.5 13.5l2 2L15 22h-2v-2z"/>',
+trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/>',
+camera:'<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
+calendar:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+"calendar-days":'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 14h.01M12 14h.01M16 14h.01M8 17.5h.01M12 17.5h.01"/>',
+smile:'<circle cx="12" cy="12" r="9"/><path d="M8.5 14.5c1 1.3 2.2 2 3.5 2s2.5-.7 3.5-2M9 9.5h.01M15 9.5h.01"/>',
+x:'<path d="M6 6l12 12M18 6L6 18"/>',
+"user-x":'<circle cx="9" cy="8" r="4"/><path d="M2 21c0-3.9 3.1-7 7-7s7 3.1 7 7M17 8l4 4M21 8l-4 4"/>',
+star:'<path d="M12 3l2.8 5.8 6.2.8-4.5 4.4 1.1 6.3L12 17.3l-5.6 3 1.1-6.3L3 9.6l6.2-.8z"/>',
+user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>',
+child:'<circle cx="12" cy="7" r="3"/><path d="M7 20c0-3.3 2.2-6 5-6s5 2.7 5 6M9 14l-2-2M15 14l2-2"/>',
+users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5M16 4.6a3.5 3.5 0 0 1 0 6.8M18 13.8c2 .9 3.5 3.1 3.5 6.2"/>',
+phone:'<rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/>',
+call:'<path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',
+"call-off":'<path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2zM3 3l18 18"/>',
+timer:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M10 2h4"/>',
+bandage:'<path d="M7.8 20.5l-4.3-4.3a2 2 0 0 1 0-2.8l9.9-9.9a2 2 0 0 1 2.8 0l4.3 4.3a2 2 0 0 1 0 2.8l-9.9 9.9a2 2 0 0 1-2.8 0z"/><path d="M10 10h.01M14 14h.01M12 12h.01M10 14h.01M14 10h.01"/>',
+bell:'<path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/>',
+alert:'<path d="M12 3.5L2.5 20h19z"/><path d="M12 10v4.5M12 17.5h.01"/>',
+cake:'<rect x="4" y="11" width="16" height="9" rx="2"/><path d="M4 15c2 1.4 4 1.4 5.3 0 1.4 1.4 4 1.4 5.4 0 1.3 1.4 3.3 1.4 5.3 0M12 11V8M12 3.5c.9 1 .9 2.2 0 3.1-.9-.9-.9-2.1 0-3.1z"/>',
+droplet:'<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>',
+file:'<path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4M9 12h6M9 16h6"/>',
+church:'<path d="M12 2v4M10 4h4M7 21V11l5-4 5 4v10M4 21h16M10 21v-4a2 2 0 0 1 4 0v4"/>',
+door:'<path d="M3 21h18M5 21V4h9v17M14 6l5 1v14M11 12h.01"/>',
+chat:'<path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.6L3 21l1.9-5.6A8.5 8.5 0 1 1 21 11.5z"/>',
+pencil:'<path d="M16.5 3.5l4 4L8 20H4v-4zM14 6l4 4"/>',
+check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+hourglass:'<path d="M6 3h12M6 21h12M7 3c0 5.5 10 5 10 9s-10 3.5-10 9M17 3c0 5.5-10 5-10 9s10 3.5 10 9"/>',
+undo:'<path d="M9 14L4 9l5-5M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/>',
+bulb:'<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2v.1h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/>',
+walk:'<circle cx="13" cy="4.5" r="2"/><path d="M10 21l2-6 3 3v3M9 10l3-3 3 3 3 1M12 7l-1 6"/>',
+chart:'<path d="M3 3v18h18M8 17v-5M13 17V8M18 17v-9"/>',
+list:'<path d="M4 6l1.5 1.5L8 5M4 12l1.5 1.5L8 11M4 18l1.5 1.5L8 17M11 6h9M11 12h9M11 18h9"/>',
+flag:'<path d="M5 21V4M5 4h11l-2 4 2 4H5"/>',
+steth:'<path d="M5 3v6a5 5 0 0 0 10 0V3M10 14v1a5 5 0 0 0 10 0v-2"/><circle cx="20" cy="11" r="2"/>',
+coins:'<circle cx="9" cy="9" r="6"/><path d="M15.5 9.2a6 6 0 1 1-6.3 6.3"/>',
+briefcase:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5h6v2M3 13h18"/>',
+pin:'<path d="M12 17v5M9 3h6l-1 6 3 3v2H7v-2l3-3z"/>',
+house:'<path d="M3 11l9-7 9 7M5 10v10h14V10M10 20v-6h4v6"/>',
+gem:'<path d="M6 3h12l3 6-9 12L3 9zM3 9h18M9 3l3 6 3-6M12 21L9 9M12 21l3-12"/>',
+"heart-crack":'<path d="M12 20s-7.2-4.4-9.1-9.2C1.6 7.4 3.7 4 7.2 4c2 0 3.4 1 4.8 2.8C13.4 5 14.8 4 16.8 4c3.5 0 5.6 3.4 4.3 6.8C19.2 15.6 12 20 12 20z"/><path d="M12 6.8l-1.5 3.6 3 2-1.5 3.4"/>',
+sunrise:'<path d="M3 18h18M7 18a5 5 0 0 1 10 0M12 3v5M9.5 5.5L12 3l2.5 2.5M4.9 11l1.4 1.4M19.1 11l-1.4 1.4"/>',
+sunset:'<path d="M3 18h18M7 18a5 5 0 0 1 10 0M12 3v5M9.5 5.5L12 8l2.5-2.5M4.9 11l1.4 1.4M19.1 11l-1.4 1.4"/>',
+utensils:'<path d="M7 3v18M4 3v5a3 3 0 0 0 6 0V3M17 21V3c-2 1-3 3.5-3 7h3"/>',
+sparkles:'<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 15l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/>',
+cloud:'<path d="M7 19h10a4 4 0 0 0 .6-8A6 6 0 0 0 6.2 9.2 5 5 0 0 0 7 19z"/>',
+settings:'<circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M2.5 12h3M18.5 12h3M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1"/><circle cx="12" cy="12" r="6.5"/>',
+flame:'<path d="M12 21a6 6 0 0 0 6-6c0-4-3-6-4-10-2 2-3 4-3 6-1-1-1.5-2-1.5-3C7.5 10 6 12.5 6 15a6 6 0 0 0 6 6z"/>',
+snow:'<path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7M9.5 3.5L12 6l2.5-2.5M9.5 20.5L12 18l2.5 2.5"/>',
+scroll:'<path d="M8 21h11a2 2 0 0 0 2-2v-1H10v1a2 2 0 0 1-4 0V5a2 2 0 0 0-2-2M6 3h12a2 2 0 0 1 2 2v13M10 8h6M10 12h6"/>',
+history:'<path d="M3 12a9 9 0 1 0 2.6-6.4L3 8M3 3v5h5M12 7v5l3 2"/>',
+lock:'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+folder:'<path d="M3 19V5a2 2 0 0 1 2-2h4l2 2h7a2 2 0 0 1 2 2v2M3 19l2.5-8h16L19 19z"/>',
+wheat:'<path d="M12 21V7M12 7c-2-1-3-3-3-5 2 1 3 3 3 5zM12 7c2-1 3-3 3-5-2 1-3 3-3 5zM12 12c-2-1-3.5-2.5-3.5-4.5 2 .5 3.5 2.5 3.5 4.5zM12 12c2-1 3.5-2.5 3.5-4.5-2 .5-3.5 2.5-3.5 4.5zM12 17c-2-1-3.5-2.5-3.5-4.5 2 .5 3.5 2.5 3.5 4.5zM12 17c2-1 3.5-2.5 3.5-4.5-2 .5-3.5 2.5-3.5 4.5z"/>',
+leaf:'<path d="M5 19c0-8 6-14 15-14 0 9-6 15-14 15M5 19l7-7"/>',
+printer:'<path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><rect x="7" y="14" width="10" height="7"/>',
+compass:'<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
+book:'<path d="M2 5h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2zM22 5h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7z"/>',
+play:'<path d="M7 4.5v15l12-7.5z"/>',
+grid:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
+sheep:'<path d="M8.5 15.5h8a3 3 0 0 0 .6-5.9 3.5 3.5 0 0 0-6.4-1.8A3 3 0 0 0 7.2 10"/><circle cx="5.5" cy="11.5" r="2.5"/><path d="M10 15.5v3M15 15.5v3"/>'
+};
+function svgIcon(n){return `<svg class="ic ic-${n}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICO[n]||""}</svg>`}
+
+/* ===== Marca ===== */
+const BRAND="Cuido mi Rebaño";
+
+/* ===== Íconos de línea (reemplazan los emojis) ===== */
+const ICN={"▶️":"play","🐑":"sheep","🐏":"sheep","🔍":"search","🔎":"search","✋":"hand","🙌":"heart","🙏":"heart","✅":"circle-check","🏅":"award","➕":"plus","🚫":"ban","💾":"save","🎉":"sparkles","✨":"sparkles","👍":"thumbs-up","📝":"note","🗑️":"trash","📷":"camera","📅":"calendar","🗓️":"calendar-days","😊":"smile","🙂":"smile","✖️":"x","🙅":"user-x","⭐":"star","🧑":"user","🙋":"user","🧔":"user","👴":"user","👩‍💼":"user","🧒":"child","📱":"phone","⏱️":"timer","🩹":"bandage","🔔":"bell","⚠️":"alert","🎂":"cake","💧":"droplet","📄":"file","⛪":"church","🚪":"door","💬":"chat","✏️":"pencil","✔️":"check","⏳":"hourglass","↩️":"undo","💡":"bulb","🚶":"walk","📊":"chart","📋":"list","🏁":"flag","👨‍👩‍👧":"users","👥":"users","🤝":"users","🩺":"steth","💰":"coins","💼":"briefcase","📌":"pin","🏠":"house","📞":"call","📵":"call-off","💍":"gem","💔":"heart-crack","🖤":"heart","🌅":"sunrise","🌇":"sunset","🍽️":"utensils","☁️":"cloud","🌤️":"cloud","🌥️":"cloud","⚙️":"settings","🔥":"flame","🧊":"snow","📜":"scroll","🕰️":"history","🔒":"lock","📂":"folder","🌾":"wheat","🌿":"leaf","🖨️":"printer","🧭":"compass","📖":"book","🔴":"dot-r","🟡":"dot-y","🟢":"dot-g"};
+const ICN_RE=new RegExp("("+Object.keys(ICN).sort((a,b)=>b.length-a.length).map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join("|")+")\\s?","gu");
+function animoji(root){
+  if(!root) return;
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode(n){
+    const pe=n.parentElement; if(!pe||pe.closest("textarea,script,style,svg")) return NodeFilter.FILTER_REJECT;
+    ICN_RE.lastIndex=0; return ICN_RE.test(n.nodeValue)?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT}});
+  const nodes=[]; while(w.nextNode()) nodes.push(w.currentNode);
+  for(const n of nodes){
+    if(n.parentElement.closest("option,select,title")){n.nodeValue=n.nodeValue.replace(ICN_RE,"");continue}
+    const frag=document.createDocumentFragment(); let last=0, m; const s=n.nodeValue; ICN_RE.lastIndex=0;
+    while((m=ICN_RE.exec(s))){
+      if(m.index>last) frag.appendChild(document.createTextNode(s.slice(last,m.index)));
+      const name=ICN[m[1]]; const sp=document.createElement("span");
+      if(name.startsWith("dot-")) sp.className="sdot "+name; else {sp.className="icw";sp.innerHTML=svgIcon(name)}
+      frag.appendChild(sp);
+      if(m[0].length>m[1].length) frag.appendChild(document.createTextNode(" "));
+      last=m.index+m[0].length;
+    }
+    if(last<s.length) frag.appendChild(document.createTextNode(s.slice(last)));
+    n.parentNode.replaceChild(frag,n);
+  }
+}
+
+/* ===== Perfil completo ===== */
+let sheetEdit=false;
+function civilTxt(p){if(!p.civil||p.g==="A"||p.g==="N")return "";const c=CIVIL.find(x=>x[0]===p.civil);if(!c)return "";const end=p.g==="D"?"a":p.g==="C"?"o":"o/a";return c[0]==="union"?c[2]:c[2]+end}
+function visitInfo(p){const di=findDay(p.id);if(di<0)return null;const x=schedule(di).find(x=>x.p.id===p.id);return {f:S.days[di].f,start:x&&x.start,kind:x&&x.kind}}
+function irow(label,val){return `<div class="irow"><dt>${label}</dt><dd>${val}</dd></div>`}
+function profileHtml(p){
+  const st=attStats(p.id), last=servs()[0], cs=(S.cases||[]).filter(c=>c.pid===p.id);
+  const cur=(p.cargos||[]).filter(c=>!c.hasta), past=(p.cargos||[]).filter(c=>c.hasta);
+  const grp=GROUP[p.g].replace(/^\S+\s/,"");
+  const sub=[grp,(p.g!=="S"&&p.det)?p.det:"",(p.edad!=null&&p.edad!=="")?p.edad+" años":"",civilTxt(p)].filter(Boolean).join(" · ");
+  const vi=isPastor()?visitInfo(p):null;
+  let h=`<div class="shead"><button class="btn sm ghost" id="sback">‹ Buscar</button><span class="spacer"></span><button class="btn sm ${sheetEdit?"pri":""}" id="sedit">${sheetEdit?"✔️ Listo":"✏️ Editar"}</button><button class="btn sm ghost" id="sclose" aria-label="Cerrar">✖️</button></div>
+    <section class="phero">${avatar(p,true,88)}<div class="min0"><h2 class="pn">${esc(p.n)}</h2><div class="psub">${esc(sub)}</div>
+      ${cur.length||(p.apart&&isPastor())?`<div class="tags">${cur.map(c=>`<span class="tag cg">🏅 ${esc(c.cargo)}${c.area?" · "+esc(c.area):""}</span>`).join("")}${p.apart&&isPastor()?`<span class="tag bad">🔍 Apartado</span>`:""}</div>`:""}</div></section>
+    ${p.tel?`<div class="qacts"><a class="qa" href="tel:${esc(p.tel)}">📞<span>Llamar</span></a><a class="qa" href="https://wa.me/57${esc(p.tel)}" target="_blank" rel="noopener">💬<span>WhatsApp</span></a></div>`:""}`;
+  if(sheetEdit){
+    h+=`<section class="block"><div class="bhead"><h3>Editar datos</h3></div>
+      <label class="flab" for="pn-${p.id}">Nombre</label><input class="pname" id="pn-${p.id}" data-pname="${p.id}" value="${esc(p.n)}">
+      <div class="fields"><select data-pg="${p.id}" aria-label="Grupo">${Object.entries(GROUP).map(([k,l])=>`<option value="${k}" ${p.g===k?"selected":""}>${l}</option>`).join("")}</select>${detSel(p)}</div>
+      ${ageCivil(p)}${telFor(p)}</section>`;
+  }
+  h+=`<section class="block"><div class="bhead"><h3>Información</h3></div><dl class="info">
+    ${irow("👥 Grupo",esc(grp))}
+    ${p.g!=="S"&&p.det?irow("💧 Bautismo",esc(p.det)):""}
+    ${irow("🎂 Edad",(p.edad!=null&&p.edad!=="")?`${p.edad} años · ${etapa(p.edad).replace(/^\S+\s/,"")}`:`<span class="muted">Sin dato</span>`)}
+    ${p.g!=="A"&&p.g!=="N"?irow("💍 Estado civil",civilTxt(p)||`<span class="muted">Sin dato</span>`):""}
+    ${irow("📱 Celular",p.tel?esc(p.tel):`<span class="muted">Sin número</span>`)}
+    ${irow("✋ Asistencia",st.tot?`${st.pres} de ${st.tot} servicios · <b>${st.pct}%</b>`:`<span class="muted">Sin registros</span>`)}
+    ${st.tot?irow("📊 Frecuencia",`${freqLabel(st).replace(/^\S+\s/,"")}${st.perMonth!=null?` · ≈ ${st.perMonth} al mes`:""} ${dotsHtml(st)}`):""}
+    ${irow("🕰️ Última vez",st.last?`${dayLabel(st.last).w} ${fmtF(st.last)}`:`<span class="muted">—</span>`)}
+    ${isPastor()?irow("📅 Visita",vi?`${dayLabel(vi.f).w} ${fmtF(vi.f)}${vi.start!=null?" · "+hm(vi.start):""}${vi.kind==="done"?" · realizada":""}`:agendaTag(p)):""}
+    </dl>
+    ${last?`<button class="arow ${last.pres.includes(p.id)?"on":""}" data-satt="${last.id}"><span class="min0" style="flex:1;text-align:left"><b>${esc(last.tipo)}</b><small class="status">${dayLabel(last.f).w} ${fmtF(last.f)} · último servicio</small></span><span class="amark">${last.pres.includes(p.id)?"✋ Presente":"Ausente"}</span></button>`:""}</section>`;
+  h+=`<section class="block"><div class="bhead"><h3>Hoja de vida</h3></div>
+    ${cur.length?cur.map(c=>`<div class="cargo"><span class="min0" style="flex:1"><span><b>🏅 ${esc(c.cargo)}</b>${c.area?` <span class="status">· ${esc(c.area)}</span>`:""}</span><small class="status">${c.desde?"Desde "+fmtF(c.desde)+" "+c.desde.slice(0,4):"Actualmente"}</small></span>${sheetEdit?`<button class="btn sm" data-cgend="${c.id}">🏁 Terminó</button><button class="btn sm" data-cgdel="${c.id}" aria-label="Borrar cargo">${cgDelAsk===c.id?"¿Borrar?":"🗑️"}</button>`:""}</div>`).join(""):`<div class="status">Sin cargos en la iglesia.</div>`}
+    ${past.length?`<div class="sub2">Cargos anteriores</div><div class="notes">${past.map(c=>`<div>${esc(c.cargo)}${c.area?" · "+esc(c.area):""} <small>(${c.desde?fmtF(c.desde)+" "+c.desde.slice(0,4):"?"} – ${fmtF(c.hasta)} ${c.hasta.slice(0,4)})</small></div>`).join("")}</div>`:""}
+    <div class="sub2">Vida espiritual</div>
+    ${(p.hitos||[]).length?`<div class="timeline">${p.hitos.slice().sort((a,b)=>(a.f||"")<(b.f||"")?-1:1).map(x=>`<div class="hito"><i></i><span class="min0" style="flex:1"><small class="status">${x.f?fmtF(x.f)+" "+x.f.slice(0,4):"Sin fecha"}</small><span>${esc(x.t)}</span></span>${sheetEdit?`<button class="btn sm" data-htdel="${x.id}" aria-label="Borrar">✖️</button>`:""}</div>`).join("")}</div>`:`<div class="status">Aún no hay momentos registrados.</div>`}
+    <details class="add"><summary>➕ Agregar cargo o momento</summary>
+      <div class="row"><input type="text" id="cg-c" list="dl-cargo" placeholder="Cargo: líder, secretario…" aria-label="Cargo"><input type="text" id="cg-a" list="dl-area" placeholder="Área: evangelismo, caballeros…" aria-label="Área o ministerio"></div>
+      <div class="row"><label class="status" for="cg-d">Desde</label><input type="date" id="cg-d"><button class="btn sm pri" id="cgadd">Agregar cargo</button></div>
+      <div class="row"><input type="date" id="ht-f" aria-label="Fecha"><input type="text" id="ht-t" list="dl-hito" placeholder="Momento: bautismo, conversión…" aria-label="Momento"><button class="btn sm pri" id="htadd">Agregar momento</button></div>
+    </details></section>`;
+  if(isPastor()){
+    h+=`<section class="block"><div class="bhead"><h3>Anotaciones privadas</h3></div><textarea id="snota-${p.id}" data-nota="${p.id}" placeholder="Petición de oración, situación familiar, si quiere bautizarse…">${esc(p.nota)}</textarea></section>
+    <section class="block"><div class="bhead"><h3>Cuidado pastoral</h3><span class="count"><b>${cs.filter(c=>c.estado!=="Resuelto").length}</b> abiertos</span></div>
+      ${cs.length?`<div class="clist">${cs.map(c=>`<div class="citem"><span class="sdot ${c.estado==="Resuelto"?"dot-g":c.estado==="Abierto"?"dot-r":"dot-y"}"></span><div class="min0"><b>${esc(c.tipo)}</b> <small class="status">${fmtF(c.fecha)} · ${esc(c.estado)}${c.seg?" · volver "+fmtF(c.seg):""}</small><div>${esc(c.texto)}</div></div></div>`).join("")}</div>`:`<div class="status">Sin problemas anotados.</div>`}
+      <details class="add"><summary>➕ Anotar problema o necesidad</summary>
+        <div class="row"><select id="spt" aria-label="Tipo de problema">${TIPOS.map(x=>`<option value="${x}">${x}</option>`).join("")}</select></div>
+        <textarea id="spx" placeholder="¿Qué necesidad encontró?"></textarea>
+        <div class="row"><button class="btn sm pri" id="sprob">Guardar</button></div></details></section>
+    <section class="block"><div class="bhead"><h3>Estado pastoral</h3></div>
+      <div class="acts"><button class="btn sm" data-ap="${p.apart?"unmark":"mark"}" data-pid="${p.id}">${p.apart?"🙌 Ya no está apartado":"🔍 Marcar como apartado"}</button></div>
+      ${p.apart?`<input type="text" id="sapm-${p.id}" data-apm="${p.id}" value="${esc(p.apart.motivo||"")}" placeholder="Motivo por el que está apartado">`:""}</section>
+    ${sheetEdit?`<section class="block danger"><div class="bhead"><h3>Eliminar persona</h3></div><div class="status">Solo si se registró por error o ya no hace parte de la iglesia. Se borra también su asistencia y sus problemas anotados.</div><div class="row"><button class="btn sm" id="pdel">${pdelAsk===p.id?"¿Seguro? Toque otra vez para borrar":"🗑️ Eliminar a "+esc(p.n)}</button></div></section>`:""}`;
+  }
+  return h;
+}
+
+/* ===== Inicio ===== */
+function saludo(){const h=new Date().getHours();return h<12?"Buenos días":h<19?"Buenas tardes":"Buenas noches"}
+function viewInicio(t){
+  const a=S.app||{}; const d=new Date(t+"T12:00");
+  const L=servs(), last=L[0], all=Object.values(S.people);
+  let h=`<section class="hello"><div class="status">${DAYN[d.getDay()]} ${d.getDate()} de ${MESES[d.getMonth()]}</div><h2>${saludo()}${a.pastor?", "+esc(a.pastor):""}</h2></section><div class="dash">`;
+  if(isPastor()){
+    const di=S.days.findIndex(x=>x.f===t); let hoy=`<div class="status">No hay visitas agendadas para hoy.</div>`;
+    if(di>=0){const sc=schedule(di);const pend=sc.filter(x=>x.kind==="plan"||x.kind==="live");const done=sc.filter(x=>x.kind==="done").length;
+      hoy=`<div class="big">${done}<small> de ${sc.length}</small></div><div class="status">visitas realizadas hoy</div>${pend[0]?`<div class="nextv">Siguiente: <b class="link" data-sp="${pend[0].p.id}">${esc(pend[0].p.n)}</b>${pend[0].start!=null?" · "+hm(pend[0].start):""}</div>`:""}`}
+    h+=`<button class="dcard" data-view="agenda"><div class="dh">🗓️ Visitas de hoy</div>${hoy}</button>`;
+  }
+  if(last){const tot=all.length;const avg=Math.round(L.slice(0,4).reduce((s,v)=>s+v.pres.length,0)/Math.min(4,L.length));
+    const bars=L.slice(0,8).reverse();const mx=Math.max(1,...bars.map(b=>b.pres.length));
+    h+=`<button class="dcard" data-view="asis"><div class="dh">✋ Último servicio</div><div class="big">${last.pres.length}<small> de ${tot}</small></div><div class="status">${esc(last.tipo)} · ${fmtF(last.f)} · promedio ${avg}</div>
+      <div class="spark" aria-hidden="true">${bars.map(b=>`<i style="height:${Math.max(8,Math.round(b.pres.length/mx*100))}%"></i>`).join("")}</div></button>`;
+  } else h+=`<button class="dcard" data-view="asis"><div class="dh">✋ Asistencia</div><div class="status">Todavía no hay servicios registrados. Toque aquí para pasar lista.</div></button>`;
+  if(isPastor()){
+    const lim=addDays(t,3);const due=(S.cases||[]).filter(c=>c.estado!=="Resuelto"&&c.seg&&c.seg<=lim).sort((a,b)=>a.seg<b.seg?-1:1);
+    const open=(S.cases||[]).filter(c=>c.estado!=="Resuelto").length;
+    h+=`<button class="dcard ${due.length?"due":""}" data-view="cuidado"><div class="dh">🔔 Seguimientos</div><div class="big">${due.length}<small> próximos</small></div><div class="status">${open} casos abiertos en total</div>${due.slice(0,3).map(c=>`<div class="mini">${esc((S.people[c.pid]||{n:"?"}).n)} · ${fmtF(c.seg)}</div>`).join("")}</button>`;
+    const ap=all.filter(p=>p.apart).length, sug=all.filter(p=>!p.apart&&p.g!=="S"&&p.g!=="N"&&attStats(p.id).streak>=3).length;
+    h+=`<button class="dcard" data-view="apart"><div class="dh">🔍 Apartados</div><div class="big">${ap}</div><div class="status">${sug?`${sug} con 3 faltas seguidas`:"Ninguna alerta nueva"}</div></button>`;
+  }
+  const cg=all.filter(p=>(p.cargos||[]).some(c=>!c.hasta)).length;
+  const cnt=g=>all.filter(p=>p.g===g).length;
+  h+=`<button class="dcard" data-view="rebano"><div class="dh">🐑 Rebaño</div><div class="big">${all.length}</div><div class="status">${cnt("D")} damas · ${cnt("C")} caballeros · ${cnt("A")} adolescentes · ${cnt("N")} niños · ${cnt("S")} simpatizantes · ${cg} con cargo</div></button></div>`;
+  h+=`<section class="block"><div class="bhead"><h3>Accesos rápidos</h3></div><div class="quick">
+    <button class="btn" data-view="asis">✋ Pasar lista</button>
+    <button class="btn" id="qopen2">🔎 Buscar persona</button>
+    ${isPastor()?`<button class="btn" id="openrep">🖨️ Informe del mes</button>`:""}
+    <button class="btn" id="openguide">🧭 Guía de inicio</button>
+    <button class="btn" id="openvideo">▶️ Video guía</button></div></section>`;
+  return h;
+}
+
+/* ===== Informe mensual ===== */
+let repMonth=null;
+function reportHtml(){
+  const ym=repMonth||todayStr().slice(0,7); const [y,m]=ym.split("-").map(Number);
+  const a=S.app||{}; const all=Object.values(S.people);
+  const sv=(S.serv||[]).filter(s=>s.f.slice(0,7)===ym).sort((x,z)=>x.f<z.f?-1:1);
+  const avg=sv.length?Math.round(sv.reduce((s,v)=>s+v.pres.length,0)/sv.length):0;
+  const byG=g=>{const ids=new Set(all.filter(p=>p.g===g).map(p=>p.id));return sv.length?Math.round(sv.reduce((s,v)=>s+v.pres.filter(i=>ids.has(i)).length,0)/sv.length):0};
+  let visits=0; for(const d of S.days||[]) if(d.f.slice(0,7)===ym) for(const id of d.ids) if(S.people[id]&&S.people[id].e==="hecha") visits++;
+  const cases=(S.cases||[]).filter(c=>c.fecha&&c.fecha.slice(0,7)===ym);
+  const tipos={};for(const c of cases)tipos[c.tipo]=(tipos[c.tipo]||0)+1;
+  const rest=all.filter(p=>p.rest&&p.rest.slice(0,7)===ym);
+  const ap=all.filter(p=>p.apart);
+  const cons=all.filter(p=>{const s=attStats(p.id);return s.tot&&s.pct>=75}).length;
+  const opts=[];for(let i=0;i<12;i++){const dd=new Date(new Date().getFullYear(),new Date().getMonth()-i,1);const k=dd.getFullYear()+"-"+pad(dd.getMonth()+1);opts.push(`<option value="${k}" ${k===ym?"selected":""}>${MESES[dd.getMonth()]} ${dd.getFullYear()}</option>`)}
+  return `<div class="repbar noprint"><select id="repm" aria-label="Mes del informe">${opts.join("")}</select><span class="spacer"></span><button class="btn sm pri" id="repprint">🖨️ Imprimir o guardar PDF</button><button class="btn sm" id="repclose">✖️ Cerrar</button></div>
+  <article class="rep">
+    <header class="rhead"><div><div class="rbrand">${BRAND}</div><h1>Informe pastoral · ${MESES[m-1]} ${y}</h1><div class="status">${esc(a.iglesia||"")}${a.pastor?" · "+esc(a.pastor):""}</div></div><div class="status">Generado el ${fmtF(todayStr())} ${todayStr().slice(0,4)}</div></header>
+    <section><h2>Resumen</h2><div class="kpis">
+      <div><b>${all.length}</b><span>personas en el rebaño</span></div>
+      <div><b>${sv.length}</b><span>servicios registrados</span></div>
+      <div><b>${avg}</b><span>asistencia promedio</span></div>
+      <div><b>${visits}</b><span>visitas realizadas</span></div>
+      <div><b>${cases.length}</b><span>necesidades atendidas</span></div>
+      <div><b>${ap.length}</b><span>hermanos apartados</span></div></div></section>
+    <section><h2>Asistencia</h2>${sv.length?`<table><thead><tr><th>Fecha</th><th>Servicio</th><th>Presentes</th></tr></thead><tbody>${sv.map(s=>`<tr><td>${dayLabel(s.f).w} ${fmtF(s.f)}</td><td>${esc(s.tipo)}</td><td>${s.pres.length}</td></tr>`).join("")}</tbody></table>
+      <p class="status">Promedio por grupo: damas ${byG("D")} · caballeros ${byG("C")} · adolescentes ${byG("A")} · niños ${byG("N")} · simpatizantes ${byG("S")}. Personas constantes (75% o más de asistencia): ${cons}.</p>`:`<p class="status">No hay servicios registrados este mes.</p>`}</section>
+    <section><h2>Cuidado pastoral</h2>${cases.length?`<p>${Object.entries(tipos).map(([k,v])=>`${esc(k)}: ${v}`).join(" · ")}</p><p class="status">Resueltos: ${cases.filter(c=>c.estado==="Resuelto").length} de ${cases.length}.</p>`:`<p class="status">No se anotaron necesidades este mes.</p>`}</section>
+    <section><h2>Restauración</h2><p>${rest.length?`Restaurados este mes: ${rest.map(p=>esc(p.n)).join(", ")}.`:"No hubo restauraciones registradas este mes."} Apartados actualmente: ${ap.length}.</p></section>
+    <footer class="status">Los nombres de personas con problemas pastorales no aparecen en este informe, para cuidar su privacidad.</footer>
+  </article>`;
+}
+function openReport(){repMonth=repMonth||todayStr().slice(0,7);const r=$("#report");r.innerHTML=reportHtml();r.hidden=false;document.body.classList.add("hasrep");animoji(r);window.scrollTo(0,0)}
+function closeReport(){const r=$("#report");r.hidden=true;r.innerHTML="";document.body.classList.remove("hasrep")}
+
+/* ===== Guía de inicio ===== */
+const GUIDE_P=[["🐑","Bienvenido a "+BRAND,"Una herramienta para cuidar a cada oveja: visitas, asistencia, hermanos apartados y necesidades, todo en un solo lugar."],
+ ["🏠","Inicio","Cada día verá aquí sus visitas de hoy, cómo fue el último servicio, los seguimientos pendientes y las alertas de hermanos que están faltando."],
+ ["🗓️","Agenda de visitas","Organice sus visitas por día, en la mañana o en la tarde. Toque Iniciar al llegar a una casa y Terminé al salir: la agenda se acomoda sola a la hora real."],
+ ["✋","Asistencia","Cree el servicio del día y toque a cada persona presente. La app calcula sola la frecuencia de cada uno y le avisa quién falta seguido."],
+ ["🔍","Apartados y cuidado","Anote los problemas que encuentre en las visitas, ponga fecha para volver y dé seguimiento hasta que se resuelvan. Registre a los hermanos apartados y sus pasos de restauración."],
+ ["🔎","Perfil de cada persona","Toque el nombre de cualquier persona para ver su perfil completo: datos, asistencia, cargos, vida espiritual y cuidado. Con Editar cambia sus datos."],
+ ["🖨️","Informe del mes","Desde Inicio puede sacar un informe mensual en PDF para presentarlo a la junta o al presbítero."]];
+const GUIDE_S=[["🐑","Bienvenido a "+BRAND,"Usted ayuda al pastor a llevar el registro del rebaño de la iglesia."],
+ ["🐑","Rebaño","Aquí está la lista de todas las personas. Puede agregar personas, buscarlas y actualizar sus datos: celular, edad, estado civil y cargos."],
+ ["✋","Asistencia","Cree el servicio del día y toque a cada persona presente. La app calcula sola la frecuencia de cada uno."],
+ ["🔎","Perfil de cada persona","Toque el nombre de cualquier persona para ver su perfil completo. Con Editar puede cambiar sus datos."]];
+let guideI=0;
+function openGuide(){guideI=0;renderGuide();$("#guide").hidden=false}
+function closeGuide(){$("#guide").hidden=true;try{localStorage.setItem(LS+"-guia-"+(isPastor()?"p":"s"),"1")}catch(e){}}
+function renderGuide(){const G=isPastor()?GUIDE_P:GUIDE_S;const [ic,t,tx]=G[guideI];
+  $("#guide").innerHTML=`<div class="gbox" role="dialog" aria-modal="true" aria-label="Guía de inicio"><div class="gic">${ic}</div><h2>${esc(t)}</h2><p>${esc(tx)}</p>
+    <div class="gdots">${G.map((_,i)=>`<i class="${i===guideI?"on":""}"></i>`).join("")}</div>
+    ${guideI===G.length-1?`<button class="btn sm" id="openvideo">▶️ Ver video guía</button>`:""}<div class="row"><button class="btn sm ghost" id="gskip">Saltar</button><span class="spacer"></span>${guideI>0?`<button class="btn sm" id="gprev">Anterior</button>`:""}<button class="btn sm pri" id="gnext">${guideI<G.length-1?"Siguiente":"Empezar"}</button></div></div>`;
+  animoji($("#guide"))}
+function openVideo(){const v=$("#vplayer");
+  v.innerHTML=`<div class="gbox vbox" role="dialog" aria-modal="true" aria-label="Video guía"><div class="row"><b style="flex:1;text-align:left">Video guía</b><button class="btn sm ghost" id="vclose" aria-label="Cerrar">✖️</button></div>
+    <video src="guia.mp4" controls playsinline preload="metadata" poster="icon-512.png"></video>
+    <div class="status" id="verr" hidden>No se pudo cargar el video. Revise su conexión a internet.</div></div>`;
+  v.hidden=false;animoji(v);const vid=v.querySelector("video");vid.addEventListener("error",()=>{$("#verr").hidden=false});vid.play().catch(()=>{})}
+function closeVideo(){const v=$("#vplayer");const vid=v.querySelector("video");if(vid)vid.pause();v.hidden=true;v.innerHTML=""}
+function maybeGuide(){try{if(!localStorage.getItem(LS+"-guia-"+(isPastor()?"p":"s")))openGuide()}catch(e){}}
+function extraClick(b){
+  if(b.id==="openrep"){openReport();return true}
+  if(b.id==="repclose"){closeReport();return true}
+  if(b.id==="repprint"){window.print();return true}
+  if(b.id==="openguide"){openGuide();return true}
+  if(b.id==="openvideo"){closeGuide();openVideo();return true}
+  if(b.id==="vclose"){closeVideo();return true}
+  if(b.id==="gskip"){closeGuide();return true}
+  if(b.id==="gnext"){const G=isPastor()?GUIDE_P:GUIDE_S;if(guideI<G.length-1){guideI++;renderGuide()}else closeGuide();return true}
+  if(b.id==="gprev"){guideI=Math.max(0,guideI-1);renderGuide();return true}
+  if(b.id==="qopen2"){sheetQ="";openSheet();return true}
+  if(b.id==="sedit"){sheetEdit=!sheetEdit;renderSheet();return true}
+  return false;
+}
+
 /* ---------- Firebase ---------- */
-const firebaseConfig={apiKey:"AIzaSyCBRjOPeaEZDOwRL76xwp-4bEn8VD7VbRI",authDomain:"redil-a2cf8.firebaseapp.com",projectId:"redil-a2cf8",storageBucket:"redil-a2cf8.firebasestorage.app",messagingSenderId:"390154406985"};
+const firebaseConfig=window.REDIL_FIREBASE;
+if(!firebaseConfig){document.body.innerHTML='<p style="padding:24px;font-family:system-ui">Falta el archivo config.js con la conexión a Firebase.</p>';throw new Error("config")}
 firebase.initializeApp(firebaseConfig);
 const auth=firebase.auth();
 db=firebase.firestore();
@@ -1081,20 +1444,30 @@ async function loadAll(){
   let ps,vs,cf;
   try{[ps,vs,cf]=await Promise.all([db.collection("people").limit(1000).get(),db.collection("serv").limit(1000).get(),db.doc("config/app").get()])}
   catch(e){$("#main").innerHTML='<div class="empty">🔒 Su usuario todavía no tiene permiso para ver el redil. Pídale al pastor que lo agregue.</div>';return}
-  if(role==="pastor"&&!ps.docs.length){showImport();return}
+  if(role==="pastor"&&!ps.docs.length&&!(cf.exists&&cf.data().started)){showImport();return}
   S=buildS(ps,vs,cf,pr&&pr.exists?pr.data().estado:null,role);
   if(role==="pastor")migrate();
-  markSynced();pickDay();render();subscribe();
+  markSynced();pickDay();render();subscribe();maybeGuide();
 }
 auth.onAuthStateChanged(u=>{if(!u){S=null;showLogin();return}hideLogin();loadAll()});
 
 /* ---------- importar y copia de seguridad ---------- */
 function showImport(){
   $("#tabbar").innerHTML="";
-  $("#main").innerHTML=`<section class="block"><div class="bhead"><h2>📥 Pasar sus datos a la app</h2></div>
-    <div class="status">La base de datos está vacía. Elija el archivo <b>datos-redil.json</b> que le entregó Claude (guárdelo antes en Archivos) y la app cargará todas las personas, la asistencia y su agenda.</div>
-    <label class="btn pri" style="text-align:center">📂 Elegir archivo<input type="file" id="impf" accept=".json,application/json" class="vh"></label>
+  $("#main").innerHTML=`<section class="block"><div class="bhead"><h2>⛪ Bienvenido, pastor</h2></div>
+    <div class="status">Escriba los datos de su iglesia para empezar.</div>
+    <input type="text" id="st-pastor" placeholder="Nombre del pastor (ej. Pastor Juan Pérez)" aria-label="Nombre del pastor">
+    <input type="text" id="st-iglesia" placeholder="Nombre de la iglesia" aria-label="Nombre de la iglesia">
+    <button class="btn pri" id="ststart">🐑 Empezar con el rebaño vacío</button>
+    <div class="status" style="margin-top:6px">¿Ya tiene un archivo de datos (.json) de otra app Redil o de una copia de seguridad? Cárguelo aquí:</div>
+    <label class="btn" style="text-align:center">📂 Cargar archivo de datos<input type="file" id="impf" accept=".json,application/json" class="vh"></label>
     <div class="status" id="impst"></div></section>`;
+  $("#ststart").onclick=async()=>{const pa=$("#st-pastor").value.trim(),ig=$("#st-iglesia").value.trim();
+    if(!pa){$("#impst").textContent="Escriba el nombre del pastor.";return}
+    $("#impst").textContent="Preparando…";
+    try{await db.doc("config/app").set({pastorFoto:null,iglesia:ig,pastor:pa,verso:"",started:true});
+      await db.doc(PRIV).set({estado:JSON.stringify({days:[],cfg:{dur:30,tr:0},cases:[],pv:{}}),at:Date.now()});
+      burst(["🐑","🎉"],8);loadAll()}catch(e){$("#impst").textContent="No se pudo guardar. Revise la conexión."}};
 }
 document.addEventListener("change",e=>{if(e.target.id==="impf"&&e.target.files&&e.target.files[0])importData(e.target.files[0])},true);
 async function importData(file){
@@ -1105,7 +1478,7 @@ async function importData(file){
     const ops=[];
     for(const [id,p] of Object.entries(data.people)) ops.push(["set",db.collection("people").doc(id),Object.assign({},p,{id})]);
     for(const s of data.serv||[]) ops.push(["set",db.collection("serv").doc(s.id),s]);
-    ops.push(["set",db.doc("config/app"),{pastorFoto:data.pastorFoto||null}]);
+    ops.push(["set",db.doc("config/app"),Object.assign({pastorFoto:data.pastorFoto||null,iglesia:"",pastor:"",verso:""},data.app||{},{started:true})]);
     if(data.priv) ops.push(["set",db.doc(PRIV),{estado:JSON.stringify(data.priv),at:Date.now()}]);
     for(let k=0;k<ops.length;k+=400){const b=db.batch();for(const [,ref,val] of ops.slice(k,k+400))b.set(ref,val);await b.commit();st.textContent=`Guardando… ${Math.min(k+400,ops.length)} de ${ops.length}`}
     st.textContent="✅ Datos cargados.";burst(["🐑","🎉","🙌"],10);
@@ -1114,7 +1487,7 @@ async function importData(file){
 }
 function downloadBackup(){
   const people={};for(const p of Object.values(S.people))people[p.id]=sharedOf(p);
-  const data={app:"redil",version:1,fecha:new Date().toISOString(),people,serv:S.serv||[],pastorFoto:S.pastorFoto||null,priv:isPastor()?privOf():null};
+  const data={formato:"redil",version:2,fecha:new Date().toISOString(),people,serv:S.serv||[],pastorFoto:S.pastorFoto||null,app:S.app||{},priv:isPastor()?privOf():null};
   const blob=new Blob([JSON.stringify(data)],{type:"application/json"});
   const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="redil-copia-"+todayStr()+".json";document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},2000);toast("💾 Copia descargada");
