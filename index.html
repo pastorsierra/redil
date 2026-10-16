@@ -102,7 +102,7 @@ main{padding-block:16px 60px;display:flex;flex-direction:column;gap:14px}
 .visit{display:grid;grid-template-columns:64px 1fr;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 14px}
 .visit .t{font-variant-numeric:tabular-nums;font-weight:700;color:var(--blue);font-size:1rem}
 .visit .t small{display:block;font-weight:500;color:var(--muted);font-size:.76rem}
-.visit.done{opacity:.7}.visit.done .t{color:var(--ok)}
+.visit.done{border:2px solid var(--ok);background:var(--ok-soft)}.visit.done .name{text-decoration:underline;text-decoration-color:var(--ok);text-decoration-thickness:3px;text-underline-offset:5px}.visit.done .t{color:var(--ok)}
 .visit.live{border-color:var(--gold)}
 .visit.overflow .t{color:var(--bad)}
 .body{min-width:0;display:flex;flex-direction:column;gap:7px}
@@ -405,9 +405,29 @@ details.add[open]{display:flex;flex-direction:column;gap:8px}
 @media (max-width:520px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.rep{padding:18px}}
 @media print{body.hasrep>*:not(#report){display:none!important}#report{position:static;padding:0;background:#fff;overflow:visible}.noprint{display:none!important}.rep{border:0;padding:0;max-width:none}}
 
+.ictl{font:inherit;font-weight:500;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:7px 30px 7px 10px;min-height:40px;max-width:100%;-webkit-appearance:none;appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 15px) 52%,calc(100% - 10px) 52%;background-size:5px 5px;background-repeat:no-repeat}
+input.ictl{background-image:none;padding-right:10px;width:9.5em}
+input.ictl[type=number]{width:5em}
+.ictl:focus{outline:2px solid var(--blue-2);outline-offset:1px;border-color:transparent}
+.ictl::placeholder{color:var(--muted);font-weight:400}
+
 .vbox{max-width:440px;padding:16px;gap:10px}.vbox video{width:100%;max-height:72vh;border-radius:14px;background:#000}
 @media (max-width:460px){.visit{grid-template-columns:1fr}.clock{font-size:1.6rem}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ===== v4 ===== */
+.tag.J{background:var(--gold-soft);color:var(--gold);border-color:transparent}.av.J{background:var(--gold-soft);color:var(--gold)}
+.tag.M{background:#ece5d8;color:#6e5b3e;border-color:transparent}.av.M{background:#ece5d8;color:#6e5b3e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tag.M,:root:not([data-theme="light"]) .av.M{background:#2f2a20;color:#d9c39d}}
+:root[data-theme="dark"] .tag.M,:root[data-theme="dark"] .av.M{background:#2f2a20;color:#d9c39d}
+.tag.vok{font-weight:700;background:var(--ok)!important;color:var(--surface)!important;border-color:transparent!important;opacity:1!important}
+.pcard.visited{border:2px solid var(--ok);background:linear-gradient(180deg,var(--ok-soft),var(--surface) 70%)}
+.pcard.visited>.whorow .name{text-decoration:underline;text-decoration-color:var(--ok);text-decoration-thickness:3px;text-underline-offset:5px}
+.dirline{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;font-size:.86rem;color:var(--muted);margin-top:4px}
+.dirline a{color:var(--blue);font-weight:600}
+.btn.wide{width:100%;justify-content:center;padding:12px;font-size:1rem}
+.block.editing{border:2px solid var(--blue-2)}
+.ver{text-align:center;margin:10px 0 4px;font-size:.78rem}
 </style>
 </head>
 <body>
@@ -450,8 +470,8 @@ const LS = "agenda-visitas-v1";
 const DAYN = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
 const DAYS = ["Dom","Lun","Mar","Mié","Jue","Vie","Sáb"];
 const WEEK = ["2026-10-19","2026-10-20","2026-10-21","2026-10-22","2026-10-23","2026-10-24","2026-10-25"];
-const GROUP = {S:"🌾 Simpatizante",D:"🐑 Dama",C:"🐏 Caballero",A:"🧑 Adolescente",N:"🧒 Niño"};
-function etapa(e){e=+e;return e<12?"🧒 Niño":e<18?"🧑 Adolescente":e<30?"🙋 Joven":e<60?"🧔 Adulto":"👴 Adulto mayor"}
+const GROUP = {S:"🌾 Simpatizante",D:"🐑 Dama",C:"🐏 Caballero",J:"🙋 Joven",A:"🧑 Adolescente",N:"🧒 Niño",M:"👴 Anciano"};
+function etapa(e){e=+e;return e<12?"🧒 Niño":e<18?"🧑 Adolescente":e<30?"🙋 Joven":e<60?"🧔 Adulto":"👴 Anciano"}
 let lastPt = {x:innerWidth/2,y:innerHeight/2};
 let npOpen = null, assets = null, upBusy = null;
 let S = null, db = null, sel = 0, wlFilter = "all", calM = null, caseFilter = "open", probOpen = null, delAsk = null, toastT, saveT, saving = Promise.resolve();
@@ -476,7 +496,75 @@ function esc(s){return String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt
 function toast(t){const el=$("#toast");el.textContent=t;try{animoji(el)}catch(e){}el.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>el.hidden=true,2600)}
 
 /* ---------- guardado ---------- */
-const SHK=["id","n","g","det","nb","tel","edad","civil","foto","cargos","hitos"];
+const SHK=["id","n","g","det","nb","tel","edad","civil","foto","cargos","hitos","dir","sx","nac"];
+/* ===== v4: grupos por edad, dirección, visitas, máximo por día ===== */
+const APPV="4 · 15 oct 2026";
+function fem(p){return p.sx==="F"||(!p.sx&&p.g==="D")}
+function masc(p){return p.sx==="M"||(!p.sx&&p.g==="C")}
+function gName(p){let l=GROUP[p.g]||"";if(fem(p)){if(p.g==="M")l=l.replace("Anciano","Anciana");if(p.g==="N")l=l.replace("Niño","Niña")}return l}
+function gEnd(p){return fem(p)?"a":masc(p)?"o":"o/a"}
+function edadDe(nac){const t=new Date(),d=new Date(nac+"T12:00");if(isNaN(d))return null;let e=t.getFullYear()-d.getFullYear();if(t.getMonth()<d.getMonth()||(t.getMonth()===d.getMonth()&&t.getDate()<d.getDate()))e--;return Math.max(0,e)}
+function grupoPorEdad(p){
+  if(p.g==="S"||p.edad==null||p.edad==="")return p.g;
+  const e=+p.edad;
+  if(e<12)return "N"; if(e<18)return "A"; if(e<30){if(["casado","union","viudo","separado"].includes(p.civil)&&(fem(p)||masc(p)))return fem(p)?"D":"C";return "J"} if(e>=60)return "M";
+  if(fem(p))return "D"; if(masc(p))return "C"; return p.g;
+}
+function needSx(p){return p.g!=="S"&&p.edad!=null&&p.edad!==""&&+p.edad>=30&&+p.edad<60&&!fem(p)&&!masc(p)}
+function applyGroup(q){
+  if(!q.sx&&q.g==="D")q.sx="F"; if(!q.sx&&q.g==="C")q.sx="M";
+  const ng=grupoPorEdad(q); if(ng===q.g)return false;
+  q.g=ng;
+  if(ng==="A"||ng==="N"){q.det="";q.nb=false}
+  else if(q.det==="Simpatizante"){q.det="";q.nb=false}
+  return true;
+}
+function ageSync(){let ch=false;for(const q of Object.values(S.people)){if(q.nac){const e=edadDe(q.nac);if(e!=null&&e!==q.edad){q.edad=e;ch=true}}if(q.edad!=null&&q.edad!==""&&applyGroup(q))ch=true}return ch}
+function mapsUrl(d){return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(d)}
+function dirLine(p){return p.dir?`<div class="dirline"><span>📍 ${esc(p.dir)}</span><a href="${mapsUrl(p.dir)}" target="_blank" rel="noopener">Cómo llegar</a></div>`:""}
+function waAviso(p,x){
+  const d=S.days[sel]; const dl=dayLabel(d.f); const dt=new Date(d.f+"T12:00");
+  const trato=p.g==="S"?"":p.g==="N"||p.g==="A"?"":fem(p)?"hermana ":masc(p)?"hermano ":"hermano(a) ";
+  const nom=String(p.n).split(/\s+/)[0];
+  const pas=(S.app&&S.app.pastor)||"su pastor";
+  const cuando=(d.f===todayStr()?"hoy ":"el "+dl.w.toLowerCase()+" "+dt.getDate()+" de "+MESES[dt.getMonth()]+" ")+(x.start!=null?"a las "+hm(x.start):"");
+  const msg=`Dios le bendiga, ${trato}${nom}. Le saluda ${pas}. Quisiera visitarle ${cuando.trim()}. ¿Le queda bien? Bendiciones.`;
+  return "https://wa.me/57"+encodeURIComponent(p.tel)+"?text="+encodeURIComponent(msg);
+}
+function markVisited(p,f){if(!f)return;p.uv=f;p.hv=(p.hv||[]).filter(x=>x!==f).concat([f]).sort()}
+function unmarkVisited(p,f){if(!p.hv)return;p.hv=p.hv.filter(x=>x!==f);p.uv=p.hv.length?p.hv[p.hv.length-1]:null;if(!p.hv.length)p.hv=null}
+function dayCount(d){return d.ids.filter(id=>S.people[id]).length}
+function fullMsg(d){const MX=S.cfg.max||5,n=dayCount(d);return n>MX?` (ese día ya tiene ${n}; el máximo es ${MX})`:""}
+function okDay(d){const w=new Date(d.f+"T12:00").getDay();return !d.off&&w!==0&&(d.am||d.pm)}
+function spreadDays(onlyIdx){
+  const MX=S.cfg.max||5,t=todayStr();let moved=0;
+  const src=onlyIdx!=null?[S.days[onlyIdx]]:S.days.slice();
+  for(const d of src){
+    if(!d||d.f<t)continue;
+    let room=MX-d.ids.filter(id=>["hecha","encurso"].includes(S.people[id]?.e)).length;
+    const keep=[],extra=[];
+    for(const id of d.ids){const q=S.people[id];if(!q)continue;if(q.e==="hecha"||q.e==="encurso"){keep.push(id);continue}if(room>0){keep.push(id);room--}else extra.push(id)}
+    if(!extra.length)continue;
+    d.ids=keep;
+    let cur=d.f;
+    for(const id of extra){
+      let tgt=null,f=cur;
+      for(let k=0;k<90;k++){f=addDays(f,1);const td=S.days[ensureDay(f)];if(okDay(td)&&dayCount(td)<MX){tgt=td;break}}
+      if(!tgt){d.ids.push(id);continue}
+      const q=S.people[id];q.e="p";q.ini=null;q.fin=null;q.conf=false;tgt.ids.push(id);moved++;cur=addDays(tgt.f,-1);
+    }
+  }
+  return moved;
+}
+function bdayCard(all,t){
+  if(!isPastor()&&!all.some(p=>p.nac))return "";
+  const y=+t.slice(0,4);
+  const L=all.filter(p=>p.nac).map(p=>{let f=y+p.nac.slice(4);if(f<t)f=(y+1)+p.nac.slice(4);const dd=Math.round((new Date(f+"T12:00")-new Date(t+"T12:00"))/864e5);return {p,f,dd}}).filter(x=>x.dd<=7).sort((a,b)=>a.dd-b.dd);
+  if(!all.some(p=>p.nac))return `<div class="dcard"><div class="dh">🎂 Cumpleaños</div><div class="status">Escriba la fecha de nacimiento en el perfil de cada persona y aquí verá quién cumple años esta semana.</div></div>`;
+  return `<div class="dcard"><div class="dh">🎂 Cumpleaños de la semana</div><div class="big">${L.length}</div>${L.length?L.slice(0,4).map(x=>`<div class="mini"><b class="link" data-sp="${x.p.id}" role="button" tabindex="0">${esc(x.p.n)}</b> · ${x.dd===0?"¡hoy!":dayLabel(x.f).w.toLowerCase()+" "+fmtF(x.f)} · ${edadDe(x.p.nac)+(x.dd===0?0:1)} años</div>`).join(""):`<div class="status">Nadie cumple años en los próximos 7 días.</div>`}</div>`;
+}
+function backfillUv(){let ch=false;for(const d of S.days)for(const id of d.ids){const q=S.people[id];if(q&&q.e==="hecha"&&!(q.hv||[]).includes(d.f)){markVisited(q,d.f);ch=true}}return ch}
+
 let PRIV=null, lastP={}, lastV={}, lastCfg="", lastPriv="", pendingRender=false;
 function isPastor(){return !S||S._role!=="sec"}
 function clean(v){return JSON.parse(JSON.stringify(v))}
@@ -512,16 +600,17 @@ function schedule(di){
   const day=S.days[di], dur=S.cfg.dur, tr=S.cfg.tr;
   const blocks=[]; if(!day.off){ if(day.am) blocks.push([540,720]); if(day.pm) blocks.push([900,1080]); }
   const t=todayStr(), isToday=day.f===t, past=day.f<t, now=nowMin();
-  let cursor=blocks.length?blocks[0][0]:540, bi=0; const out=[];
+  let cursor=blocks.length?blocks[0][0]:540, bi=0; const out=[]; const MX=S.cfg.max||5; let nv=0;
   for(const id of day.ids){
     const p=S.people[id]; if(!p) continue;
-    if(p.e==="hecha"){out.push({p,start:p.ini,end:p.fin,kind:"done"});cursor=Math.max(cursor,p.fin+tr);continue}
-    if(p.e==="encurso"){const end=p.ini+dur+(p.extra||0);out.push({p,start:p.ini,end,kind:"live"});cursor=Math.max(end,isToday?now:0)+tr;continue}
+    if(p.e==="hecha"){nv++;out.push({p,start:p.ini,end:p.fin,kind:"done"});cursor=Math.max(cursor,p.fin+tr);continue}
+    if(p.e==="encurso"){nv++;const end=p.ini+dur+(p.extra||0);out.push({p,start:p.ini,end,kind:"live"});cursor=Math.max(end,isToday?now:0)+tr;continue}
     if(past){out.push({p,kind:"overflow"});continue}
+    if(nv>=MX){out.push({p,kind:"overflow",cap:true});continue}
     let s=cursor; if(isToday) s=Math.max(s,now);
     while(bi<blocks.length){ if(s<blocks[bi][0]) s=blocks[bi][0]; if(s+dur<=blocks[bi][1]+0.01) break; bi++; }
     if(bi>=blocks.length){out.push({p,kind:"overflow"});continue}
-    out.push({p,start:s,end:s+dur,kind:"plan",block:bi});cursor=s+dur+tr;
+    nv++;out.push({p,start:s,end:s+dur,kind:"plan",block:bi});cursor=s+dur+tr;
   }
   return out;
 }
@@ -535,14 +624,14 @@ function act(id,a,arg){
     if(S.days[di].f!==todayStr()){toast("Solo puede iniciar visitas del día de hoy");return}
     p.e="encurso";p.ini=nowMin();p.extra=0;p.np=null;unlockAudio();toast("Visita iniciada: "+p.n);burst(["🙏","🏠"],4);
   }
-  if(a==="end"){p.e="hecha";p.fin=Math.max(nowMin(),(p.ini||0)+1);toast("🐑 Oveja visitada. Agenda reorganizada.");const dd=S.days[di];const all=dd&&dd.ids.every(x=>S.people[x].e==="hecha");burst(all?["😊","🐑","🎉","🙌"]:["🐑","✅","🎉"],all?10:6);if(all)setTimeout(()=>toast("😊 ¡Terminó todas las visitas del día!"),900)}
+  if(a==="end"){p.e="hecha";markVisited(p,S.days[di]&&S.days[di].f);p.fin=Math.max(nowMin(),(p.ini||0)+1);toast("🐑 Oveja visitada. Agenda reorganizada.");const dd=S.days[di];const all=dd&&dd.ids.every(x=>S.people[x].e==="hecha");burst(all?["😊","🐑","🎉","🙌"]:["🐑","✅","🎉"],all?10:6);if(all)setTimeout(()=>toast("😊 ¡Terminó todas las visitas del día!"),900)}
   if(a==="conf"){p.conf=!p.conf;toast(p.conf?"👍 Visita confirmada":"Confirmación quitada");if(p.conf)burst("👍",4)}
   if(a==="extra"){p.extra=(p.extra||0)+10;delete fired[id+"5"];delete fired[id+"0"];toast("+10 minutos")}
-  if(a==="undo"){p.e="p";p.ini=null;p.fin=null;p.extra=0}
+  if(a==="undo"){unmarkVisited(p,S.days[di]&&S.days[di].f);p.e="p";p.ini=null;p.fin=null;p.extra=0}
   if(a==="noestaba"){p.e="noestaba";p.ini=null;p.fin=null;if(di>=0)S.days[di].ids.splice(S.days[di].ids.indexOf(id),1);p.ne=S.days[di]?.f||"";toast(p.n+" pasó a la lista de espera")}
   if(a==="up"||a==="down"){const ids=S.days[di].ids,i=ids.indexOf(id),j=a==="up"?i-1:i+1;if(j<0||j>=ids.length)return;[ids[i],ids[j]]=[ids[j],ids[i]]}
-  if(a==="move"){const to=+arg;if(di>=0)S.days[di].ids.splice(S.days[di].ids.indexOf(id),1);if(p.e!=="hecha"){p.e="p";p.ini=null;p.fin=null}S.days[to].ids.push(id);toast("Pasó al "+dayLabel(S.days[to].f).w)}
-  if(a==="add"){const to=+arg;if(p.e==="noestaba")p.e="p";S.days[to].ids.push(id);toast(p.n+" agregado al "+dayLabel(S.days[to].f).w)}
+  if(a==="move"){const to=+arg;if(di>=0)S.days[di].ids.splice(S.days[di].ids.indexOf(id),1);if(p.e!=="hecha"){p.e="p";p.ini=null;p.fin=null}S.days[to].ids.push(id);toast("Pasó al "+dayLabel(S.days[to].f).w+fullMsg(S.days[to]))}
+  if(a==="add"){const to=+arg;if(p.e==="noestaba")p.e="p";S.days[to].ids.push(id);toast(p.n+" agregado al "+dayLabel(S.days[to].f).w+fullMsg(S.days[to]))}
   if(a==="remove"){if(di>=0)S.days[di].ids.splice(S.days[di].ids.indexOf(id),1);p.e="p";toast("Pasó a la lista de espera")}
   save();render();
 }
@@ -557,17 +646,17 @@ function fillGaps(){
 }
 function waitlist(){
   const inDay=new Set(S.days.flatMap(d=>d.ids));
-  const ord={S:0,D:1,C:2,A:3,N:4};
+  const ord={S:0,D:1,C:2,M:3,J:4,A:5,N:6};
   return Object.values(S.people).filter(p=>!inDay.has(p.id)&&p.e!=="hecha")
     .sort((a,b)=>(b.e==="noestaba")-(a.e==="noestaba")||ord[a.g]-ord[b.g]||(b.nb?1:0)-(a.nb?1:0)).map(p=>p.id);
 }
 
 /* ---------- vista ---------- */
 function tagsFor(p){
-  let h=`<span class="tag ${p.g}">${GROUP[p.g]}</span>`;
+  let h=`<span class="tag ${p.g}">${gName(p)}</span>`;
   for(const c of (p.cargos||[]).filter(c=>!c.hasta)) h+=`<span class="tag cg">🏅 ${esc(c.cargo)}${c.area?" · "+esc(c.area):""}</span>`;
   if(p.g!=="S"&&p.det) h+=`<span class="tag ${p.nb?"nb":""}">${esc(p.det)}</span>`;
-  if(p.edad!=null&&p.edad!==""){const et=etapa(p.edad);if(!GROUP[p.g].endsWith(et.split(" ")[1]))h+=`<span class="tag">${et}</span>`}
+  if(p.edad!=null&&p.edad!==""){const et=etapa(p.edad);if(p.g==="S")h+=`<span class="tag">${et}</span>`}
   const oc=(S.cases||[]).filter(c=>c.pid===p.id&&c.estado!=="Resuelto").length;
   if(oc) h+=`<span class="tag Abierto">${oc} ${oc>1?"casos abiertos":"caso abierto"}</span>`;
   if(p.conf) h+=`<span class="tag conf">👍 Confirmada</span>`;
@@ -582,7 +671,7 @@ function telFor(p){
 const CIVIL=[["soltero","🙂","Solter"],["casado","💍","Casad"],["union","🤝","Unión libre"],["separado","💔","Separad"],["viudo","🖤","Viud"]];
 function civilSel(p){
   if(p.g==="A"||p.g==="N") return "";
-  const end=p.g==="D"?"a":p.g==="C"?"o":"o/a";
+  const end=gEnd(p);
   return `<select class="civil" id="civ-${p.id}" data-civil="${p.id}" aria-label="Estado civil de ${esc(p.n)}"><option value="">💬 Estado civil</option>${CIVIL.map(([k,e,l])=>`<option value="${k}" ${p.civil===k?"selected":""}>${e} ${k==="union"?l:l+end}</option>`).join("")}</select>`;
 }
 const EMO=[["👨‍👩‍👧","hop"],["🚪","door"],["👍","thumb"],["▶️","play"],["✅","pop"],["✔️","pop"],["⏱️","tick"],["⏳","sway"],["📝","write"],["↩️","undo"],["💬","talk"],["📞","ring"],["📱","buzz"],["📵","blink"],["🌅","rise"],["🌇","set"],["🍽️","shake"],["🐑","hop"],["🐏","hop"],["🌾","sway"],["🌿","sway"],["🩹","beat"],["🙏","bow"],["🙅","no"],["🚫","beat"],["💾","save"],["➕","spin"],["🗑️","trash"],["📷","flash"],["📅","flip"],["🗓️","flip"],["✨","twinkle"],["🔔","bell"],["🔴","beat"],["🟡","beat"],["🟢","beat"],["😊","cool"],["⚠️","blink"],["💡","glow"],["🚶","walk"],["☁️","float"],["🌤️","float"],["🙌","raise"],["🎉","party"],["✖️","spin"],["🩺","swing"],["💰","coin"],["💼","shake"],["📌","pin"],["🤝","shake"],["🏠","hop"],["🔍","shake"],["🎂","glow"],["💍","twinkle"],["🖤","beat"],["💔","beat"],["✏️","write"],["🧒","hop"],["🧑","hop"],["🙋","raise"],["🧔","bow"],["👴","bow"],["✋","raise"],["📊","flip"],["📋","flip"],["⚙️","spin"],["🔥","glow"],["🌥️","float"],["🧊","float"],["🔎","shake"],["💧","rise"],["📄","flip"],["🏅","twinkle"],["⭐","twinkle"],["📜","flip"],["🏁","shake"],["🕰️","tick"],["👩‍💼","bow"]];
@@ -610,8 +699,8 @@ const VIEWS=[["inicio","🏠","Inicio"],["agenda","🗓️","Agenda"],["cal","�
 let view="inicio", rbFilter="all", rbQuery="", asFilter="all", asQuery="", selServ=null, svDelAsk=false;
 try{const v=localStorage.getItem(LS+"-view");if(v&&VIEWS.some(x=>x[0]===v))view=v}catch(e){}
 const SERV_T=["Escuela dominical","Culto de oración","Culto de enseñanza","Culto evangelístico","Culto de jóvenes","Santa cena","Vigilia","Otro"];
-const FILTERS=[["all","Todos"],["S","🌾 Simpatizantes"],["D","🐑 Damas"],["C","🐏 Caballeros"],["A","🧑 Adolescentes"],["N","🧒 Niños"]];
-const GORD={S:0,D:1,C:2,A:3,N:4};
+const FILTERS=[["all","Todos"],["D","🐑 Damas"],["C","🐏 Caballeros"],["J","🙋 Jóvenes"],["A","🧑 Adolescentes"],["N","🧒 Niños"],["M","👴 Ancianos"],["S","🌾 Simpatizantes"]];
+const GORD={D:0,C:1,J:2,M:3,A:4,N:5,S:6};
 function cfgOf(){const a=S.app||{};return {pastorFoto:S.pastorFoto||null,iglesia:a.iglesia||"",pastor:a.pastor||"",verso:a.verso||"",started:true}}
 const VERSO_DEF="“Yo soy el buen pastor; y conozco mis ovejas” · Juan 10:14";
 function paintHeader(){const a=(S&&S.app)||{};const sub=[a.pastor,a.iglesia].filter(Boolean).join(" · ");
@@ -626,11 +715,11 @@ function churchBlock(){const a=S.app||{};
     <div class="row"><button class="btn sm pri" id="cfgsave">💾 Guardar datos</button></div></section>`}
 function addBlock(){return `<section class="block"><div class="bhead"><h2>➕ Agregar persona</h2></div>
     <div class="row"><input type="text" id="np-n" placeholder="Nombre completo" aria-label="Nombre completo" style="flex:1;min-width:180px">
-    <select id="np-g" aria-label="Grupo">${Object.entries(GROUP).map(([k,l])=>`<option value="${k}">${l}</option>`).join("")}</select>
+    <input type="number" inputmode="numeric" min="0" max="120" id="np-e" placeholder="Edad" aria-label="Edad" style="width:5.5em"><select id="np-g" aria-label="Grupo">${Object.entries(GROUP).map(([k,l])=>`<option value="${k}">${l}</option>`).join("")}</select>
     <button class="btn sm pri" id="npadd">➕ Agregar</button></div></section>`}
 function addPerson(){const n=$("#np-n").value.trim();if(!n){toast("Escriba el nombre");return}
   const g=$("#np-g").value;const id="p"+Date.now().toString(36);
-  S.people[id]={id,n,g,det:g==="S"?"Simpatizante":"",nb:false,tel:"",e:"p",ini:null,fin:null,extra:0,nota:""};
+  S.people[id]={id,n,g,det:g==="S"?"Simpatizante":"",nb:false,tel:"",e:"p",ini:null,fin:null,extra:0,nota:""};{const q=S.people[id],ev=$("#np-e")&&$("#np-e").value.trim();if(g==="D")q.sx="F";if(g==="C")q.sx="M";if(ev!==""&&ev!=null){q.edad=Math.max(0,Math.min(120,parseInt(ev,10)||0));applyGroup(q)}}
   save();render();toast("🐑 "+n+" agregado al rebaño");burst(["🐑","🎉"],5);openSheet(id)}
 function deletePerson(id){const p=S.people[id];if(!p)return;
   for(const d of S.days||[]){const i=d.ids.indexOf(id);if(i>=0)d.ids.splice(i,1)}
@@ -687,7 +776,8 @@ function viewAgenda(t){
   let h=(!(S.app&&S.app.pastor))?`<button class="mrow warnblock" data-view="rebano" id="gocfg"><span style="font-size:1.4rem">⛪</span><span class="min0" style="flex:1"><b>Complete los datos de su iglesia</b><small class="status">Nombre del pastor y de la iglesia. Están al final de la pestaña Rebaño.</small></span><span>›</span></button>`:"";
   h+=`<section class="block"><div class="bhead"><h2>🗓️ Agenda de visitas</h2><span class="status">${MESES[+day.f.slice(5,7)-1]} ${day.f.slice(0,4)}</span></div>${weekStrip(day.f,t)}
     <div class="bar"><button class="chip" id="am" aria-pressed="${day.am}">🌅 Mañana 9–12</button><button class="chip" id="pm" aria-pressed="${day.pm}">🌇 Tarde 3–6</button><button class="chip off" id="off" aria-pressed="${!!day.off}">${day.off?"🚫 No puedo este día":"🙅 ¿No puede este día?"}</button></div>
-    <details class="mini"><summary class="status">⚙️ Duración de visitas y traslado</summary><div class="bar" style="margin-top:8px">
+    <details class="mini"><summary class="status">⚙️ Visitas por día, duración y traslado</summary><div class="bar" style="margin-top:8px">
+      <label class="status">🏠 Máximo <select id="vmax">${[3,4,5,6,7,8].map(v=>`<option ${v===(S.cfg.max||5)?"selected":""} value="${v}">${v} visitas</option>`).join("")}</select> por día</label>
       <label class="status">⏱️ Visita <select id="dur">${[20,30,40,45,60].map(v=>`<option ${v===S.cfg.dur?"selected":""} value="${v}">${v} min</option>`).join("")}</select></label>
       <label class="status">🚶 Traslado <select id="tr">${[0,5,10,15].map(v=>`<option ${v===S.cfg.tr?"selected":""} value="${v}">${v} min</option>`).join("")}</select></label></div></details></section>`;
   if(day.off){
@@ -702,7 +792,8 @@ function viewAgenda(t){
   let lastBlock=null;
   ok.forEach(x=>{const b=x.start>=900?1:0;if(lastBlock===0&&b===1) h+=`<div class="lunch">🍽️ Descanso del mediodía · la tarde empieza a las 3:00 pm</div>`;lastBlock=b;h+=card(x,isToday)});
   h+=`</div>`;
-  if(over.length) h+=`<div class="sec">${day.off?"🚫 Día no disponible":day.f<t?"⚠️ No se visitaron":"⚠️ No alcanzan en este horario"}</div><div class="list">`+over.map(x=>card(x,isToday)).join("")+`</div>`;
+  const capd=!day.off&&day.f>=t&&over.some(x=>x.cap);
+  if(over.length) h+=`<div class="sec">${day.off?"🚫 Día no disponible":day.f<t?"⚠️ No se visitaron":capd?"⚠️ Pasan del máximo de "+(S.cfg.max||5)+" visitas por día":"⚠️ No alcanzan en este horario"}</div>${capd?`<div class="row" style="margin:-4px 0 8px"><button class="btn sm pri" id="spread">📅 Repartir en los próximos días</button></div>`:""}<div class="list">`+over.map(x=>card(x,isToday)).join("")+`</div>`;
   const wl=waitlist();
   h+=`<details class="panel" id="wlp" ${S._wlOpen?"open":""}><summary>🌿 Ovejas por visitar (${wl.length})</summary>
     <div class="status" style="margin-top:6px">Toque “Llenar este día” para completar los espacios libres, o agregue a alguien a un día.</div>
@@ -741,10 +832,11 @@ function rList(){
 }
 function pcard(p){
   const st=attStats(p.id);
-  return `<article class="pcard"><div class="whorow">${avatar(p,true)}<div class="min0"><div class="name link" data-sp="${p.id}" role="button" tabindex="0">${esc(p.n)}</div><div class="tags">${tagsFor(p)}${p.apart?`<span class="tag bad">🔍 Apartado</span>`:""}</div></div></div>
-    ${ageCivil(p)}${telFor(p)}
+  const vz=isPastor()&&p.uv;
+  return `<article class="pcard${vz?" visited":""}"><div class="whorow">${avatar(p,true)}<div class="min0"><div class="name link" data-sp="${p.id}" role="button" tabindex="0">${esc(p.n)}</div><div class="tags">${vz?`<span class="tag ok vok">✅ Visitado el ${fmtF(p.uv)}</span>`:""}${tagsFor(p)}${p.apart?`<span class="tag bad">🔍 Apartado</span>`:""}</div></div></div>
+    ${ageCivil(p)}${telFor(p)}${dirLine(p)}
     <div class="attline"><span>✋ ${st.tot?`${st.pres} de ${st.tot} servicios · <b>${st.pct}%</b>`:"Sin registros de asistencia"}</span>${dotsHtml(st)}${st.tot?`<span class="tag">${freqLabel(st)}</span>`:""}</div>
-    <div class="acts"><button class="btn sm pri" data-sp="${p.id}">📄 Ficha</button>${isPastor()?agendaTag(p)+`<button class="btn sm" data-ap="${p.apart?"unmark":"mark"}" data-pid="${p.id}">${p.apart?"🙌 Ya no está apartado":"🔍 Marcar apartado"}</button>`:""}</div></article>`;
+    <div class="acts"><button class="btn sm pri" data-sp="${p.id}">👤 Perfil</button>${isPastor()?agendaTag(p)+`<button class="btn sm" data-ap="${p.apart?"unmark":"mark"}" data-pid="${p.id}">${p.apart?"🙌 Ya no está apartado":"🔍 Marcar apartado"}</button>`:""}</div></article>`;
 }
 
 /* --- Asistencia --- */
@@ -968,17 +1060,18 @@ function card(x,isToday){
   let acts="";
   if(x.kind==="plan"){
     if(isToday) acts+=`<button class="btn sm pri" data-a="start" data-id="${p.id}">▶️ Iniciar</button>`;
+    if(p.tel) acts+=`<a class="btn sm" href="${waAviso(p,x)}" target="_blank" rel="noopener">💬 Avisar visita</a>`;
     acts+=`<button class="btn sm" data-a="noestaba" data-id="${p.id}">🚪 No estaba</button>`;
   }
   if(x.kind==="live") acts+=`<button class="btn sm gold" data-a="end" data-id="${p.id}">✅ Terminé</button><button class="btn sm" data-a="extra" data-id="${p.id}">⏱️ +10 min</button>`;
-  if(x.kind==="done") acts+=`<span class="tag ok">🐑 ✅ Visitado</span><button class="btn sm" data-a="undo" data-id="${p.id}">↩️ Deshacer</button>`;
+  if(x.kind==="done") acts+=`<span class="tag ok vok">✅ Visita realizada</span><button class="btn sm" data-a="undo" data-id="${p.id}">↩️ Deshacer</button>`;
   if(x.kind!=="done"&&x.kind!=="live"){
     acts+=`<button class="btn sm" data-a="conf" data-id="${p.id}">${p.conf?"👍 Confirmada":"👍 Puedo ir"}</button><button class="btn sm" data-c="npopen" data-pid="${p.id}">${npOpen===p.id?"✖️ Cancelar":"🙅 No puedo"}</button>`;
     acts+=`<button class="btn sm" data-a="up" data-id="${p.id}" aria-label="Subir">↑</button><button class="btn sm" data-a="down" data-id="${p.id}" aria-label="Bajar">↓</button>
     <select data-move="${p.id}" aria-label="Pasar a otro día"><option value="">Pasar a…</option>${S.days.map((d,i)=>i===sel?"":`<option value="${i}">${dayLabel(d.f).w} ${dayLabel(d.f).n}</option>`).join("")}<option value="wl">Lista de espera</option></select>`;
   }
-  return `<div class="visit ${cls}">${time}<div class="body"><div class="whorow">${avatar(p,true)}<div class="min0"><div class="name link" data-sp="${p.id}" role="button" tabindex="0">${esc(p.n)}</div><div class="tags">${tagsFor(p)}${p.edad!=null&&p.edad!==""?`<span class="tag">🎂 ${p.edad} años</span>`:""}</div></div></div>${telFor(p)}
-    <div class="acts">${acts}<button class="btn sm" data-sp="${p.id}">📄 Ficha</button><button class="btn sm" data-c="probopen" data-pid="${p.id}">${probOpen===p.id?"✖️ Cancelar":"📝 Anotar problema"}</button></div>
+  return `<div class="visit ${cls}">${time}<div class="body"><div class="whorow">${avatar(p,true)}<div class="min0"><div class="name link" data-sp="${p.id}" role="button" tabindex="0">${esc(p.n)}</div><div class="tags">${tagsFor(p)}${p.edad!=null&&p.edad!==""?`<span class="tag">🎂 ${p.edad} años</span>`:""}</div></div></div>${telFor(p)}${dirLine(p)}
+    <div class="acts">${acts}<button class="btn sm" data-sp="${p.id}">👤 Perfil</button><button class="btn sm" data-c="probopen" data-pid="${p.id}">${probOpen===p.id?"✖️ Cancelar":"📝 Anotar problema"}</button></div>
     ${probOpen===p.id?probForm(p.id):""}${npOpen===p.id?npForm(p.id):""}
     <details><summary class="status">Notas${p.nota?" ✎":""}</summary><textarea id="nota-${p.id}" data-nota="${p.id}" placeholder="Petición de oración, si quiere bautizarse, próximo paso…">${esc(p.nota)}</textarea>${p.foto?`<button class="btn sm" data-c="phdel" data-pid="${p.id}" style="margin-top:6px">🗑️ Quitar foto</button>`:""}</details></div></div>`;
 }
@@ -994,7 +1087,7 @@ function qResults(){
 }
 function detSel(p){
   if(p.g==="S"||p.g==="A"||p.g==="N") return "";
-  const e=p.g==="D"?"a":"o"; const opts=[["Bautizad"+e,false],["No bautizad"+e,true],["Bautismo: no se sabe",true]];
+  const e=fem(p)?"a":"o"; const opts=[["Bautizad"+e,false],["No bautizad"+e,true],["Bautismo: no se sabe",true]];
   return `<select data-pdet="${p.id}" aria-label="Bautismo">${opts.map(([t,nb])=>`<option value="${t}" ${p.det===t?"selected":""}>💧 ${t}</option>`).join("")}${opts.some(o=>o[0]===p.det)?"":`<option selected value="${esc(p.det||"")}">💧 ${esc(p.det||"Sin dato")}</option>`}</select>`;
 }
 function renderSheet(){
@@ -1032,8 +1125,12 @@ function sheetClick(b){
   return false;
 }
 function sheetChange(el){
-  if(el.dataset.pname){const q=S.people[el.dataset.pname];const v=el.value.trim();if(!v){el.value=q.n;return true}q.n=v;save();render();toast("✏️ Nombre actualizado");return true}
-  if(el.dataset.pg){const q=S.people[el.dataset.pg];q.g=el.value;if(q.g==="S"){q.det="Simpatizante";q.nb=false}else if(q.g==="A"||q.g==="N"){q.det="";q.nb=false}else if(!q.det||q.det==="Simpatizante"){q.det="";q.nb=false}save();render();toast("Grupo: "+GROUP[q.g]);return true}
+  if(el.id==="vmax"){S.cfg.max=+el.value;save();render();toast("Máximo "+el.value+" visitas por día");return true}
+  if(el.dataset.psx!==undefined){const q=S.people[el.dataset.psx];q.sx=el.value||null;const gc=applyGroup(q);save();render();toast((el.value?"Guardado":"Sexo borrado")+(gc?" · pasó a "+GROUP[q.g].replace(/^\S+\s/,""):""));return true}
+  if(el.dataset.pnac!==undefined){const q=S.people[el.dataset.pnac];q.nac=el.value||"";if(q.nac)q.edad=edadDe(q.nac);const gc=applyGroup(q);save();render();toast(q.nac?"🎂 "+q.edad+" años"+(gc?" · pasó a "+GROUP[q.g].replace(/^\S+\s/,""):needSx(q)?" · indique si es hombre o mujer":""):"Fecha borrada");return true}
+  if(el.dataset.pdir!==undefined){const q=S.people[el.dataset.pdir];q.dir=el.value.trim();save();toast(q.dir?"📍 Dirección guardada":"Dirección borrada");return true}
+  if(el.dataset.pname){const q=S.people[el.dataset.pname];const v=el.value.trim();if(!v){el.value=q.n;return true}q.n=v;save();toast("✏️ Nombre actualizado");return true}
+  if(el.dataset.pg){const q=S.people[el.dataset.pg];q.g=el.value;if(q.g==="D")q.sx="F";if(q.g==="C")q.sx="M";if(q.g==="S"){q.det="Simpatizante";q.nb=false}else if(q.g==="A"||q.g==="N"){q.det="";q.nb=false}else if(!q.det||q.det==="Simpatizante"){q.det="";q.nb=false}save();render();toast("Grupo: "+GROUP[q.g]);return true}
   if(el.dataset.pdet){const q=S.people[el.dataset.pdet];q.det=el.value;q.nb=!/^Bautizad/.test(el.value);save();render();toast("💧 "+el.value);return true}
   return false;
 }
@@ -1089,8 +1186,8 @@ document.addEventListener("change",e=>{
   if(el.dataset.cd){const c=S.cases.find(x=>x.id===el.dataset.cd);if(c){c.seg=el.value;save();render();toast(el.value?"Seguimiento el "+fmtF(el.value):"Sin fecha de seguimiento")}}
   if(el.dataset.photo&&el.files&&el.files[0]){setPhoto(el.dataset.photo,el.files[0]);return}
   if(el.dataset.tel!==undefined){const q=S.people[el.dataset.tel];const v=el.value.replace(/[^0-9]/g,"").replace(/^57(?=\d{10}$)/,"");q.tel=v;save();render();toast(v?"📱 Celular guardado: "+v:"Celular borrado");return}
-  if(el.dataset.civil!==undefined){const q=S.people[el.dataset.civil];q.civil=el.value||null;save();render();toast(el.value?"Estado civil guardado":"Estado civil borrado");return}
-  if(el.dataset.age!==undefined){const q=S.people[el.dataset.age];const v=el.value.trim();q.edad=v===""?null:Math.max(0,Math.min(120,parseInt(v,10)||0));save();render();toast(q.edad==null?"Edad borrada":"🎂 "+q.n+": "+q.edad+" años");return}
+  if(el.dataset.civil!==undefined){const q=S.people[el.dataset.civil];q.civil=el.value||null;const gc=applyGroup(q);save();render();toast((el.value?"Estado civil guardado":"Estado civil borrado")+(gc?" · pasó a "+GROUP[q.g].replace(/^\S+\s/,""):""));return}
+  if(el.dataset.age!==undefined){const q=S.people[el.dataset.age];const v=el.value.trim();q.edad=v===""?null:Math.max(0,Math.min(120,parseInt(v,10)||0));if(q.nac&&q.edad!==edadDe(q.nac))q.nac="";const gc=applyGroup(q);save();render();toast(q.edad==null?"Edad borrada":"🎂 "+q.edad+" años"+(gc?" · pasó a "+GROUP[q.g].replace(/^\S+\s/,""):needSx(q)?" · indique si es hombre o mujer":""));return}
   if(el.id==="offm"){S.days[sel].offm=el.value;save();toast("Motivo guardado")}
   if(el.id==="offmove"&&el.value!==""){const d=S.days[sel];const ids=d.ids.filter(id=>S.people[id].e!=="hecha");
     for(const id of ids){d.ids.splice(d.ids.indexOf(id),1);const q=S.people[id];q.e="p";q.ini=null;q.fin=null;if(el.value!=="wl")S.days[+el.value].ids.push(id)}
@@ -1104,6 +1201,8 @@ document.addEventListener("input",e=>{const el=e.target;if(!S)return;
   if(el.id==="sq"){sheetQ=el.value;const L=$("#qres");if(L){L.innerHTML=qResults();animoji(L)}return}
   if(el.id==="rbq"){rbQuery=el.value;const L=$("#plist");if(L){L.innerHTML=rList();animoji(L)}return}
   if(el.id==="asq"){asQuery=el.value;const L=$("#alist");if(L){L.innerHTML=aList();animoji(L)}return}
+  if(el.dataset?.pdir){S.people[el.dataset.pdir].dir=el.value.trim();save();return}
+  if(el.dataset?.pname&&el.value.trim()){S.people[el.dataset.pname].n=el.value.trim();save();return}
   const id=el.dataset?.nota;if(id){S.people[id].nota=el.value;save()}});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"){if(!$("#vplayer").hidden)closeVideo();else if(!$("#guide").hidden)closeGuide();else if(!$("#report").hidden)closeReport();else if(sheetOpen)closeSheet()}
   if(e.key==="Enter"&&e.target.matches&&e.target.matches("[data-sp]:not(button)")){e.preventDefault();e.target.click()}});
@@ -1220,7 +1319,7 @@ function svgIcon(n){return `<svg class="ic ic-${n}" viewBox="0 0 24 24" fill="no
 const BRAND="Cuido mi Rebaño";
 
 /* ===== Íconos de línea (reemplazan los emojis) ===== */
-const ICN={"▶️":"play","🐑":"sheep","🐏":"sheep","🔍":"search","🔎":"search","✋":"hand","🙌":"heart","🙏":"heart","✅":"circle-check","🏅":"award","➕":"plus","🚫":"ban","💾":"save","🎉":"sparkles","✨":"sparkles","👍":"thumbs-up","📝":"note","🗑️":"trash","📷":"camera","📅":"calendar","🗓️":"calendar-days","😊":"smile","🙂":"smile","✖️":"x","🙅":"user-x","⭐":"star","🧑":"user","🙋":"user","🧔":"user","👴":"user","👩‍💼":"user","🧒":"child","📱":"phone","⏱️":"timer","🩹":"bandage","🔔":"bell","⚠️":"alert","🎂":"cake","💧":"droplet","📄":"file","⛪":"church","🚪":"door","💬":"chat","✏️":"pencil","✔️":"check","⏳":"hourglass","↩️":"undo","💡":"bulb","🚶":"walk","📊":"chart","📋":"list","🏁":"flag","👨‍👩‍👧":"users","👥":"users","🤝":"users","🩺":"steth","💰":"coins","💼":"briefcase","📌":"pin","🏠":"house","📞":"call","📵":"call-off","💍":"gem","💔":"heart-crack","🖤":"heart","🌅":"sunrise","🌇":"sunset","🍽️":"utensils","☁️":"cloud","🌤️":"cloud","🌥️":"cloud","⚙️":"settings","🔥":"flame","🧊":"snow","📜":"scroll","🕰️":"history","🔒":"lock","📂":"folder","🌾":"wheat","🌿":"leaf","🖨️":"printer","🧭":"compass","📖":"book","🔴":"dot-r","🟡":"dot-y","🟢":"dot-g"};
+const ICN={"▶️":"play","🐑":"sheep","🐏":"sheep","🔍":"search","🔎":"search","✋":"hand","🙌":"heart","🙏":"heart","✅":"circle-check","🏅":"award","➕":"plus","🚫":"ban","💾":"save","🎉":"sparkles","✨":"sparkles","👍":"thumbs-up","📝":"note","🗑️":"trash","📷":"camera","📅":"calendar","🗓️":"calendar-days","😊":"smile","🙂":"smile","✖️":"x","🙅":"user-x","⭐":"star","🧑":"user","🙋":"user","🧔":"user","👴":"user","👩‍💼":"user","🧒":"child","📱":"phone","⏱️":"timer","🩹":"bandage","🔔":"bell","⚠️":"alert","🎂":"cake","💧":"droplet","📄":"file","👤":"user","📍":"pin","⛪":"church","🚪":"door","💬":"chat","✏️":"pencil","✔️":"check","⏳":"hourglass","↩️":"undo","💡":"bulb","🚶":"walk","📊":"chart","📋":"list","🏁":"flag","👨‍👩‍👧":"users","👥":"users","🤝":"users","🩺":"steth","💰":"coins","💼":"briefcase","📌":"pin","🏠":"house","📞":"call","📵":"call-off","💍":"gem","💔":"heart-crack","🖤":"heart","🌅":"sunrise","🌇":"sunset","🍽️":"utensils","☁️":"cloud","🌤️":"cloud","🌥️":"cloud","⚙️":"settings","🔥":"flame","🧊":"snow","📜":"scroll","🕰️":"history","🔒":"lock","📂":"folder","🌾":"wheat","🌿":"leaf","🖨️":"printer","🧭":"compass","📖":"book","🔴":"dot-r","🟡":"dot-y","🟢":"dot-g"};
 const ICN_RE=new RegExp("("+Object.keys(ICN).sort((a,b)=>b.length-a.length).map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join("|")+")\\s?","gu");
 function animoji(root){
   if(!root) return;
@@ -1246,35 +1345,60 @@ function animoji(root){
 
 /* ===== Perfil completo ===== */
 let sheetEdit=false;
-function civilTxt(p){if(!p.civil||p.g==="A"||p.g==="N")return "";const c=CIVIL.find(x=>x[0]===p.civil);if(!c)return "";const end=p.g==="D"?"a":p.g==="C"?"o":"o/a";return c[0]==="union"?c[2]:c[2]+end}
+function civilTxt(p){if(!p.civil||p.g==="A"||p.g==="N")return "";const c=CIVIL.find(x=>x[0]===p.civil);if(!c)return "";const end=gEnd(p);return c[0]==="union"?c[2]:c[2]+end}
 function visitInfo(p){const di=findDay(p.id);if(di<0)return null;const x=schedule(di).find(x=>x.p.id===p.id);return {f:S.days[di].f,start:x&&x.start,kind:x&&x.kind}}
 function irow(label,val){return `<div class="irow"><dt>${label}</dt><dd>${val}</dd></div>`}
 function profileHtml(p){
   const st=attStats(p.id), last=servs()[0], cs=(S.cases||[]).filter(c=>c.pid===p.id);
   const cur=(p.cargos||[]).filter(c=>!c.hasta), past=(p.cargos||[]).filter(c=>c.hasta);
-  const grp=GROUP[p.g].replace(/^\S+\s/,"");
+  const grp=gName(p).replace(/^\S+\s/,"");
   const sub=[grp,(p.g!=="S"&&p.det)?p.det:"",(p.edad!=null&&p.edad!=="")?p.edad+" años":"",civilTxt(p)].filter(Boolean).join(" · ");
   const vi=isPastor()?visitInfo(p):null;
-  let h=`<div class="shead"><button class="btn sm ghost" id="sback">‹ Buscar</button><span class="spacer"></span><button class="btn sm ${sheetEdit?"pri":""}" id="sedit">${sheetEdit?"✔️ Listo":"✏️ Editar"}</button><button class="btn sm ghost" id="sclose" aria-label="Cerrar">✖️</button></div>
+  let h=`<div class="shead"><button class="btn sm ghost" id="sback">‹ Buscar</button><span class="spacer"></span><button class="btn sm ${sheetEdit?"pri":""}" id="sedit">${sheetEdit?"✔️ Listo":"✏️ Editar perfil"}</button><button class="btn sm ghost" id="sclose" aria-label="Cerrar">✖️</button></div>
     <section class="phero">${avatar(p,true,88)}<div class="min0"><h2 class="pn">${esc(p.n)}</h2><div class="psub">${esc(sub)}</div>
       ${cur.length||(p.apart&&isPastor())?`<div class="tags">${cur.map(c=>`<span class="tag cg">🏅 ${esc(c.cargo)}${c.area?" · "+esc(c.area):""}</span>`).join("")}${p.apart&&isPastor()?`<span class="tag bad">🔍 Apartado</span>`:""}</div>`:""}</div></section>
-    ${p.tel?`<div class="qacts"><a class="qa" href="tel:${esc(p.tel)}">📞<span>Llamar</span></a><a class="qa" href="https://wa.me/57${esc(p.tel)}" target="_blank" rel="noopener">💬<span>WhatsApp</span></a></div>`:""}`;
+    ${p.tel||p.dir?`<div class="qacts">${p.tel?`<a class="qa" href="tel:${esc(p.tel)}">📞<span>Llamar</span></a><a class="qa" href="https://wa.me/57${esc(p.tel)}" target="_blank" rel="noopener">💬<span>WhatsApp</span></a>`:""}${p.dir?`<a class="qa" href="${mapsUrl(p.dir)}" target="_blank" rel="noopener">🧭<span>Cómo llegar</span></a>`:""}</div>`:""}`;
+  const grpSel=`<select class="ictl" data-pg="${p.id}" aria-label="Grupo">${Object.entries(GROUP).map(([k,l])=>`<option value="${k}" ${p.g===k?"selected":""}>${l.replace(/^\S+\s/,"")}</option>`).join("")}</select>`;
+  const e=fem(p)?"a":"o";
+  const detOpts=[["Bautizad"+e,false],["No bautizad"+e,true],["Bautismo: no se sabe",true]];
+  const detS=(p.g==="S"||p.g==="A"||p.g==="N")?"":`<select class="ictl" data-pdet="${p.id}" aria-label="Bautismo">${detOpts.some(o=>o[0]===p.det)?"":`<option value="" selected>Sin dato</option>`}${detOpts.map(([t])=>`<option value="${t}" ${p.det===t?"selected":""}>${t}</option>`).join("")}</select>`;
+  const end=gEnd(p);
+  const civS=`<select class="ictl" data-civil="${p.id}" aria-label="Estado civil"><option value="">Sin dato</option>${CIVIL.map(([k,,l])=>`<option value="${k}" ${p.civil===k?"selected":""}>${k==="union"?l:l+end}</option>`).join("")}</select>`;
+  const ageI=`<input class="ictl" type="number" inputmode="numeric" min="0" max="120" data-age="${p.id}" id="iage-${p.id}" value="${p.edad??""}" placeholder="Sin dato" aria-label="Edad">${(p.edad!=null&&p.edad!=="")?`<span class="muted">años · ${etapa(p.edad).replace(/^\S+\s/,"")}</span>`:""}`;
+  const telI=`<input class="ictl" type="tel" inputmode="tel" data-tel="${p.id}" id="itel-${p.id}" value="${esc(p.tel)}" placeholder="Agregar número" aria-label="Celular">`;
+  const sxS=`<select class="ictl" data-psx="${p.id}" aria-label="Sexo"><option value="">Sin dato</option><option value="F" ${fem(p)?"selected":""}>Mujer</option><option value="M" ${masc(p)?"selected":""}>Hombre</option></select>`;
+  const nacI=`<input class="ictl" type="date" data-pnac="${p.id}" value="${esc(p.nac||"")}" aria-label="Fecha de nacimiento" style="width:auto">`;
+  const dirI=`<input class="ictl" type="text" data-pdir="${p.id}" value="${esc(p.dir||"")}" placeholder="Barrio, calle y número" aria-label="Dirección" autocomplete="street-address" style="width:100%">`;
+  const nd=`<span class="muted">Sin dato</span>`, hasAge=p.edad!=null&&p.edad!=="", adult=p.g!=="A"&&p.g!=="N";
   if(sheetEdit){
-    h+=`<section class="block"><div class="bhead"><h3>Editar datos</h3></div>
-      <label class="flab" for="pn-${p.id}">Nombre</label><input class="pname" id="pn-${p.id}" data-pname="${p.id}" value="${esc(p.n)}">
-      <div class="fields"><select data-pg="${p.id}" aria-label="Grupo">${Object.entries(GROUP).map(([k,l])=>`<option value="${k}" ${p.g===k?"selected":""}>${l}</option>`).join("")}</select>${detSel(p)}</div>
-      ${ageCivil(p)}${telFor(p)}</section>`;
+    h+=`<section class="block editing"><div class="bhead"><h3>Editar perfil</h3><span class="status">Se guarda solo</span></div><dl class="info">
+    ${irow("✏️ Nombre",`<input class="ictl" type="text" data-pname="${p.id}" id="pn-${p.id}" value="${esc(p.n)}" aria-label="Nombre" style="width:100%">`)}
+    ${irow("👥 Grupo",grpSel)}
+    ${p.g!=="S"?irow("👤 Sexo",sxS):""}
+    ${irow("🎂 Nacimiento",nacI)}
+    ${irow("🎂 Edad",ageI)}
+    ${detS?irow("💧 Bautismo",detS):""}
+    ${adult?irow("💍 Estado civil",civS):""}
+    ${irow("📱 Celular",telI)}
+    ${irow("📍 Dirección",dirI)}
+    </dl><div class="status">Si escribe la edad o la fecha de nacimiento, la app ubica a la persona en su grupo: niños hasta 11 años, adolescentes de 12 a 17, jóvenes de 18 a 29 (si ya es casado pasa a damas o caballeros), damas y caballeros de 30 a 59 y ancianos desde 60. Los simpatizantes siguen como simpatizantes.</div>
+    <div class="row"><button class="btn pri" id="sedit3">✔️ Listo</button></div></section>`;
+  } else {
+    h+=`<div class="row"><button class="btn pri wide" id="sedit2">✏️ Editar perfil</button></div>`;
   }
   h+=`<section class="block"><div class="bhead"><h3>Información</h3></div><dl class="info">
-    ${irow("👥 Grupo",esc(grp))}
-    ${p.g!=="S"&&p.det?irow("💧 Bautismo",esc(p.det)):""}
-    ${irow("🎂 Edad",(p.edad!=null&&p.edad!=="")?`${p.edad} años · ${etapa(p.edad).replace(/^\S+\s/,"")}`:`<span class="muted">Sin dato</span>`)}
-    ${p.g!=="A"&&p.g!=="N"?irow("💍 Estado civil",civilTxt(p)||`<span class="muted">Sin dato</span>`):""}
-    ${irow("📱 Celular",p.tel?esc(p.tel):`<span class="muted">Sin número</span>`)}
+    ${irow("👥 Grupo",esc(gName(p).replace(/^\S+\s/,""))+(hasAge&&p.g!=="S"?` <span class="muted">· por su edad</span>`:""))}
+    ${p.g!=="S"&&(fem(p)||masc(p))?irow("👤 Sexo",fem(p)?"Mujer":"Hombre"):""}
+    ${detS?irow("💧 Bautismo",p.det?esc(p.det):nd):""}
+    ${irow("🎂 Edad",hasAge?`${p.edad} años${p.nac?` <span class="muted">· nació el ${fmtF(p.nac)} ${p.nac.slice(0,4)}</span>`:""}`:nd)}
+    ${adult?irow("💍 Estado civil",civilTxt(p)||nd):""}
+    ${irow("📱 Celular",p.tel?esc(p.tel):nd)}
+    ${irow("📍 Dirección",p.dir?`${esc(p.dir)} <a href="${mapsUrl(p.dir)}" target="_blank" rel="noopener">Cómo llegar</a>`:nd)}
     ${irow("✋ Asistencia",st.tot?`${st.pres} de ${st.tot} servicios · <b>${st.pct}%</b>`:`<span class="muted">Sin registros</span>`)}
     ${st.tot?irow("📊 Frecuencia",`${freqLabel(st).replace(/^\S+\s/,"")}${st.perMonth!=null?` · ≈ ${st.perMonth} al mes`:""} ${dotsHtml(st)}`):""}
     ${irow("🕰️ Última vez",st.last?`${dayLabel(st.last).w} ${fmtF(st.last)}`:`<span class="muted">—</span>`)}
     ${isPastor()?irow("📅 Visita",vi?`${dayLabel(vi.f).w} ${fmtF(vi.f)}${vi.start!=null?" · "+hm(vi.start):""}${vi.kind==="done"?" · realizada":""}`:agendaTag(p)):""}
+    ${isPastor()?irow("✅ Última visita",p.uv?`${dayLabel(p.uv).w} ${fmtF(p.uv)} ${p.uv.slice(0,4)}${(p.hv||[]).length>1?` <span class="muted">· ${p.hv.length} visitas en total</span>`:""}`:`<span class="muted">Aún no se ha visitado</span>`):""}
     </dl>
     ${last?`<button class="arow ${last.pres.includes(p.id)?"on":""}" data-satt="${last.id}"><span class="min0" style="flex:1;text-align:left"><b>${esc(last.tipo)}</b><small class="status">${dayLabel(last.f).w} ${fmtF(last.f)} · último servicio</small></span><span class="amark">${last.pres.includes(p.id)?"✋ Presente":"Ausente"}</span></button>`:""}</section>`;
   h+=`<section class="block"><div class="bhead"><h3>Hoja de vida</h3></div>
@@ -1329,13 +1453,13 @@ function viewInicio(t){
   }
   const cg=all.filter(p=>(p.cargos||[]).some(c=>!c.hasta)).length;
   const cnt=g=>all.filter(p=>p.g===g).length;
-  h+=`<button class="dcard" data-view="rebano"><div class="dh">🐑 Rebaño</div><div class="big">${all.length}</div><div class="status">${cnt("D")} damas · ${cnt("C")} caballeros · ${cnt("A")} adolescentes · ${cnt("N")} niños · ${cnt("S")} simpatizantes · ${cg} con cargo</div></button></div>`;
+  h+=`<button class="dcard" data-view="rebano"><div class="dh">🐑 Rebaño</div><div class="big">${all.length}</div><div class="status">${cnt("D")} damas · ${cnt("C")} caballeros · ${cnt("J")} jóvenes · ${cnt("A")} adolescentes · ${cnt("N")} niños · ${cnt("M")} ancianos · ${cnt("S")} simpatizantes · ${cg} con cargo</div></button>${bdayCard(all,t)}</div>`;
   h+=`<section class="block"><div class="bhead"><h3>Accesos rápidos</h3></div><div class="quick">
     <button class="btn" data-view="asis">✋ Pasar lista</button>
     <button class="btn" id="qopen2">🔎 Buscar persona</button>
     ${isPastor()?`<button class="btn" id="openrep">🖨️ Informe del mes</button>`:""}
     <button class="btn" id="openguide">🧭 Guía de inicio</button>
-    <button class="btn" id="openvideo">▶️ Video guía</button></div></section>`;
+    <button class="btn" id="openvideo">▶️ Video guía</button></div></section><div class="status ver">${BRAND} · versión ${APPV}</div>`;
   return h;
 }
 
@@ -1365,7 +1489,7 @@ function reportHtml(){
       <div><b>${cases.length}</b><span>necesidades atendidas</span></div>
       <div><b>${ap.length}</b><span>hermanos apartados</span></div></div></section>
     <section><h2>Asistencia</h2>${sv.length?`<table><thead><tr><th>Fecha</th><th>Servicio</th><th>Presentes</th></tr></thead><tbody>${sv.map(s=>`<tr><td>${dayLabel(s.f).w} ${fmtF(s.f)}</td><td>${esc(s.tipo)}</td><td>${s.pres.length}</td></tr>`).join("")}</tbody></table>
-      <p class="status">Promedio por grupo: damas ${byG("D")} · caballeros ${byG("C")} · adolescentes ${byG("A")} · niños ${byG("N")} · simpatizantes ${byG("S")}. Personas constantes (75% o más de asistencia): ${cons}.</p>`:`<p class="status">No hay servicios registrados este mes.</p>`}</section>
+      <p class="status">Promedio por grupo: damas ${byG("D")} · caballeros ${byG("C")} · jóvenes ${byG("J")} · adolescentes ${byG("A")} · niños ${byG("N")} · ancianos ${byG("M")} · simpatizantes ${byG("S")}. Personas constantes (75% o más de asistencia): ${cons}.</p>`:`<p class="status">No hay servicios registrados este mes.</p>`}</section>
     <section><h2>Cuidado pastoral</h2>${cases.length?`<p>${Object.entries(tipos).map(([k,v])=>`${esc(k)}: ${v}`).join(" · ")}</p><p class="status">Resueltos: ${cases.filter(c=>c.estado==="Resuelto").length} de ${cases.length}.</p>`:`<p class="status">No se anotaron necesidades este mes.</p>`}</section>
     <section><h2>Restauración</h2><p>${rest.length?`Restaurados este mes: ${rest.map(p=>esc(p.n)).join(", ")}.`:"No hubo restauraciones registradas este mes."} Apartados actualmente: ${ap.length}.</p></section>
     <footer class="status">Los nombres de personas con problemas pastorales no aparecen en este informe, para cuidar su privacidad.</footer>
@@ -1401,7 +1525,7 @@ function openVideo(){const v=$("#vplayer");
   v.hidden=false;animoji(v);const vid=v.querySelector("video");vid.addEventListener("error",()=>{$("#verr").hidden=false});vid.play().catch(()=>{})}
 function closeVideo(){const v=$("#vplayer");const vid=v.querySelector("video");if(vid)vid.pause();v.hidden=true;v.innerHTML=""}
 function maybeGuide(){try{if(!localStorage.getItem(LS+"-guia-"+(isPastor()?"p":"s")))openGuide()}catch(e){}}
-function extraClick(b){
+function extraClick(b){if(b.id==="spread"){const m=spreadDays(sel);save();render();toast(m?`📅 ${m} visitas pasaron a los días siguientes`:"No hay visitas para repartir");return true}
   if(b.id==="openrep"){openReport();return true}
   if(b.id==="repclose"){closeReport();return true}
   if(b.id==="repprint"){window.print();return true}
@@ -1412,7 +1536,7 @@ function extraClick(b){
   if(b.id==="gnext"){const G=isPastor()?GUIDE_P:GUIDE_S;if(guideI<G.length-1){guideI++;renderGuide()}else closeGuide();return true}
   if(b.id==="gprev"){guideI=Math.max(0,guideI-1);renderGuide();return true}
   if(b.id==="qopen2"){sheetQ="";openSheet();return true}
-  if(b.id==="sedit"){sheetEdit=!sheetEdit;renderSheet();return true}
+  if(b.id==="sedit"||b.id==="sedit2"||b.id==="sedit3"){const ae=document.activeElement;if(ae&&ae.blur)ae.blur();sheetEdit=!sheetEdit;render();const sb=$("#sheet .sheetbox")||$("#sheet");if(sheetEdit){const e=$("#sheet .editing");if(e)e.scrollIntoView({block:"start",behavior:"smooth"})}return true}
   return false;
 }
 
@@ -1446,8 +1570,8 @@ async function loadAll(){
   catch(e){$("#main").innerHTML='<div class="empty">🔒 Su usuario todavía no tiene permiso para ver el redil. Pídale al pastor que lo agregue.</div>';return}
   if(role==="pastor"&&!ps.docs.length&&!(cf.exists&&cf.data().started)){showImport();return}
   S=buildS(ps,vs,cf,pr&&pr.exists?pr.data().estado:null,role);
-  if(role==="pastor")migrate();
-  markSynced();pickDay();render();subscribe();maybeGuide();
+  markSynced();let ch=false;if(role==="pastor"){ch=migrate()||ch;if(backfillUv())ch=true}if(ageSync())ch=true;if(role==="pastor"&&S.cfg.max==null){S.cfg.max=5;const m=spreadDays();ch=true;if(m)setTimeout(()=>toast(`📅 Ahora el máximo es 5 visitas por día: ${m} visitas pasaron a los días siguientes`),1800)}if(ch)save();
+  pickDay();render();subscribe();maybeGuide();
 }
 auth.onAuthStateChanged(u=>{if(!u){S=null;showLogin();return}hideLogin();loadAll()});
 
